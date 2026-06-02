@@ -91,16 +91,20 @@
     updateCheckoutLink();
   }
 
+  const stripeLinks = {
+    white:  'https://buy.stripe.com/6oU7sM2rw4ls2iHgzwgYU01',
+    black:  'https://buy.stripe.com/4gMaEYd6a2dk5uTgzwgYU02',
+    cherry: 'https://buy.stripe.com/8x27sMfei2dk4qP2IGgYU03',
+    pink:   'https://buy.stripe.com/9B6eVe0jo4ls4qP0AygYU04',
+    gold:   'https://buy.stripe.com/5kQ6oIfeidW2aPd3MKgYU05',
+  };
+
   function updateCheckoutLink() {
     const link = document.getElementById('checkout-link');
     if (!link) return;
-    const base = 'https://buy.stripe.com/aFaaEY8PUaJQ2iH4QOgYU00';
-    if (cartItems.length === 0) {
-      link.href = base;
-      return;
-    }
+    if (cartItems.length === 0) return;
     const color = cartItems[0].material.split('·')[0].trim().toLowerCase();
-    link.href = base + '?client_reference_id=' + encodeURIComponent(color);
+    link.href = stripeLinks[color] || 'shop.html';
   }
 
   /* ─── Cart drawer ─────────────────────────────────────────── */
@@ -193,5 +197,6 @@
 
   /* ─── Init ────────────────────────────────────────────────── */
   updateBadge();
+  updateCheckoutLink();
 
 })();
