@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Ceremony Cup — The Jason Stewart Collection</title>
+  <meta name="description" content="Aluminum Tumbler — an aluminum cup with a drinking straw. Available in five colors." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Product layout ────────────────────────────────────── */
+    .product-wrap {
+      padding-top: var(--nav-h);
+      display: grid;
+      grid-template-columns: 56fr 44fr;
+      min-height: calc(100svh - var(--nav-h));
+    }
+
+    /* Gallery */
+    .gallery {
+      padding: 48px 40px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100svh - var(--nav-h));
+      overflow: hidden;
+    }
+    .gallery-main {
+      flex: 1;
+      overflow: hidden;
+      background: #FFFFFF;
+      min-height: 0;
+    }
+    .gallery-main img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      object-position: center;
+      transition: opacity 220ms var(--ease);
+    }
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .thumb-btn {
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: #FFFFFF;
+      cursor: pointer;
+      border: 1px solid var(--stone);
+      padding: 0;
+      transition: border-color 250ms var(--ease), opacity 250ms var(--ease);
+    }
+    .thumb-btn img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .thumb-btn:hover { opacity: 0.8; }
+    .thumb-btn[aria-pressed="true"] { border-color: var(--champagne); }
+    .thumb-btn:focus-visible { outline: 2px solid var(--champagne); outline-offset: 2px; }
+
+    /* Product info */
+    .product-info {
+      padding: 64px 64px 80px 48px;
+      border-left: 1px solid var(--stone);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .breadcrumb-item {
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--charcoal-muted);
+    }
+    .breadcrumb-item a:hover { color: var(--charcoal); }
+    .breadcrumb-sep {
+      font-size: 0.6875rem;
+      color: var(--stone-dark);
+    }
+
+    .product-name {
+      font-family: var(--f-display);
+      font-size: clamp(2.25rem, 3.5vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      color: var(--charcoal);
+      margin-top: 10px;
+      margin-bottom: 24px;
+    }
+    .product-price-line {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+    .product-price {
+      font-size: 1.375rem;
+      font-weight: 400;
+      color: var(--charcoal);
+    }
+    .product-currency {
+      font-size: 0.875rem;
+      color: var(--charcoal-muted);
+      font-weight: 300;
+    }
+
+    .product-desc {
+      font-size: 0.9375rem;
+      color: var(--charcoal-mid);
+      line-height: 1.85;
+      margin-bottom: 40px;
+      max-width: 380px;
+    }
+
+    /* Details table */
+    .details-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 48px;
+    }
+    .details-table tr {
+      border-top: 1px solid var(--stone);
+    }
+    .details-table tr:last-child {
+      border-bottom: 1px solid var(--stone);
+    }
+    .details-table td {
+      padding: 14px 0;
+      vertical-align: top;
+    }
+    .details-table .td-label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal-muted);
+      width: 38%;
+    }
+    .details-table .td-value {
+      font-size: 0.9rem;
+      color: var(--charcoal-mid);
+      line-height: 1.6;
+    }
+
+    /* Quantity + Add to cart */
+    .purchase-row {
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--stone);
+    }
+    .qty-btn {
+      width: 44px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--charcoal-muted);
+      transition: color 200ms var(--ease), background-color 200ms var(--ease);
+    }
+    .qty-btn:hover { color: var(--charcoal); background: var(--ivory-warm); }
+    .qty-btn:focus-visible { outline: 2px solid var(--champagne); outline-offset: 0; }
+    .qty-display {
+      width: 44px;
+      text-align: center;
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      border-left: 1px solid var(--stone);
+      border-right: 1px solid var(--stone);
+      line-height: 1;
+      user-select: none;
+    }
+    .add-btn {
+      flex: 1;
+      justify-content: center;
+    }
+
+    .product-shipping-note {
+      font-size: 0.8125rem;
+      color: var(--charcoal-muted);
+      line-height: 1.65;
+      margin-bottom: 40px;
+    }
+
+    /* Materials note */
+    .materials-note {
+      padding: 24px 0;
+      border-top: 1px solid var(--stone);
+      margin-top: auto;
+    }
+    .materials-note p {
+      font-size: 0.8125rem;
+      color: var(--charcoal-muted);
+      line-height: 1.7;
+    }
+
+    /* Related products */
+    .related {
+      padding: 96px 64px;
+      border-top: 1px solid var(--stone);
+    }
+    .related-heading {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+      margin-top: 12px;
+      margin-bottom: 56px;
+    }
+
+    /* ── Mobile ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .product-wrap {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .gallery {
+        position: static;
+        height: auto;
+        padding: calc(var(--nav-h) + 24px) 24px 32px;
+      }
+      .gallery-main { height: 60svh; flex: none; }
+      .product-info {
+        padding: 40px 24px 64px;
+        border-left: none;
+        border-top: 1px solid var(--stone);
+      }
+      .related { padding: 64px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Cart Drawer ──────────────────────────────────────── -->
+  <div class="cart-overlay" id="cart-overlay" aria-hidden="true">
+    <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping cart" aria-modal="true">
+      <div class="cart-header">
+        <h2 class="cart-title f-display">Your Cart</h2>
+        <button class="cart-close" id="cart-close" aria-label="Close cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="cart-body" id="cart-body">
+        <div class="cart-empty">
+          <p class="cart-empty-text">Your cart is empty.</p>
+          <a href="shop.html" class="btn btn-text">Explore the Collection</a>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-amount f-display" id="cart-total">—</span>
+        </div>
+        <p class="cart-note">Complimentary shipping on all orders. Gift packaging available at checkout.</p>
+        <a href="https://buy.stripe.com/aFaaEY8PUaJQ2iH4QOgYU00" id="checkout-link" class="btn btn-fill" style="width:100%; justify-content:center; text-decoration:none;">Proceed to Checkout</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ─── Navigation ──────────────────────────────────────── -->
+  <nav class="site-nav is-ivory" id="site-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Jason Stewart Collection — Home">
+      <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:54px; width:auto; display:block;" />
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shop.html"  class="nav-link active">Shop</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-cart-wrap">
+        <a href="#" class="nav-link" id="cart-toggle" aria-label="Open cart">Cart</a>
+        <span class="cart-badge" id="cart-badge" style="display:none;" aria-live="polite">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Product ──────────────────────────────────────────── -->
+  <main>
+    <div class="product-wrap">
+
+      <!-- Gallery -->
+      <div class="gallery" aria-label="Product image">
+        <div class="gallery-main">
+          <img
+            id="gallery-main-img"
+            src="cup-white.png"
+            alt="Aluminum Tumbler — White"
+            width="800" height="1000"
+          />
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <span class="breadcrumb-item"><a href="shop.html">Shop</a></span>
+          <span class="breadcrumb-sep" aria-hidden="true">/</span>
+          <span class="breadcrumb-item"><a href="shop.html">Cups &amp; Mugs</a></span>
+          <span class="breadcrumb-sep" aria-hidden="true">/</span>
+          <span class="breadcrumb-item" aria-current="page">Aluminum Tumbler</span>
+        </nav>
+
+        <p class="label-accent">Aluminum &nbsp;·&nbsp; 5 Colors &nbsp;·&nbsp; Includes Straw</p>
+        <h1 class="product-name">Aluminum Tumbler</h1>
+
+        <div class="product-price-line" aria-label="Price: $30 USD">
+          <span class="product-price">$30</span>
+          <span class="product-currency">USD</span>
+        </div>
+
+        <p class="product-desc">
+          Aluminum Tumbler is an aluminum cup designed for everyday use. Lightweight, durable, and finished in five colors. Comes with a matching drinking straw. Built to hold up and look good doing it.
+        </p>
+
+        <!-- Details -->
+        <table class="details-table" aria-label="Product details">
+          <tbody>
+            <tr>
+              <td class="td-label">Material</td>
+              <td class="td-value">Aluminum with powder coat finish</td>
+            </tr>
+            <tr>
+              <td class="td-label">Includes</td>
+              <td class="td-value">Cup &amp; matching drinking straw</td>
+            </tr>
+            <tr>
+            </tr>
+            <tr>
+              <td class="td-label">Care</td>
+              <td class="td-value">Dishwasher safe</td>
+            </tr>
+            <tr>
+              <td class="td-label">Availability</td>
+              <td class="td-value">In stock &middot; Ships in 3–5 days</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Quantity + Add to cart -->
+        <div class="purchase-row">
+          <div class="qty-control" aria-label="Quantity" role="group">
+            <button class="qty-btn" id="qty-dec" aria-label="Decrease quantity">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14"/></svg>
+            </button>
+            <span class="qty-display" id="qty-display" aria-live="polite" aria-atomic="true">1</span>
+            <button class="qty-btn" id="qty-inc" aria-label="Increase quantity">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+          <button
+            class="btn btn-fill add-btn"
+            id="add-to-cart"
+            data-name="Aluminum Tumbler"
+            data-material="White · Aluminum"
+            data-price="3000"
+            data-image="cup-white.png"
+          >
+            Add to Cart
+          </button>
+        </div>
+
+        <p class="product-shipping-note">
+          Complimentary shipping on all orders &middot; Each piece ships in custom packaging, gift-ready by default.
+        </p>
+
+        <div class="materials-note">
+          <p>
+            Each cup is inspected before it ships. If your order arrives damaged, contact us within 7 days and we will make it right.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Related Products ──────────────────────────────── -->
+    <section class="related" aria-labelledby="related-heading">
+      <p class="label-caps">You may also consider</p>
+      <h2 class="related-heading" id="related-heading">More Colors</h2>
+
+      <div class="product-grid">
+        <a href="product.html?color=black" class="product-card reveal" aria-label="Aluminum Tumbler — Black">
+          <div class="card-image">
+            <img src="cup-black.png" alt="Aluminum Tumbler in Black" width="480" height="640" loading="lazy" />
+          </div>
+          <div class="card-info">
+            <p class="card-label label-caps">Black</p>
+            <p class="card-price">$30</p>
+          </div>
+        </a>
+
+        <a href="product.html?color=cherry" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Cherry">
+          <div class="card-image">
+            <img src="cup-cherry.png" alt="Aluminum Tumbler in Cherry" width="480" height="640" loading="lazy" />
+          </div>
+          <div class="card-info">
+            <p class="card-label label-caps">Cherry</p>
+            <p class="card-price">$30</p>
+          </div>
+        </a>
+
+        <a href="product.html?color=gold" class="product-card reveal reveal-delay-2" aria-label="Aluminum Tumbler — Gold">
+          <div class="card-image">
+            <img src="cup-gold.png" alt="Aluminum Tumbler in Gold" width="480" height="640" loading="lazy" />
+          </div>
+          <div class="card-info">
+            <p class="card-label label-caps">Gold</p>
+            <p class="card-price">$30</p>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── Footer ───────────────────────────────────────────── -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="footer-grid" style="grid-template-columns:1.5fr 1fr 1fr;">
+      <div>
+        <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:72px; width:auto; display:block; margin-bottom:12px;" />
+        <p class="footer-tagline">Premium aluminum cups.</p>
+      </div>
+      <div>
+        <span class="footer-col-title">Explore</span>
+        <ul class="footer-links">
+          <li><a href="shop.html"  class="footer-link">Shop</a></li>
+          <li><a href="about.html" class="footer-link">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">Orders</span>
+        <ul class="footer-links">
+          <li><a href="shipping.html" class="footer-link">Shipping</a></li>
+          <li><a href="returns.html"  class="footer-link">Returns</a></li>
+          <li><a href="care-guide.html" class="footer-link">Care Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 The Jason Stewart Collection. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    /* Color variant from URL parameter */
+    const colors = {
+      white:  { img: 'cup-white.png',  label: 'White',  material: 'White · Aluminum' },
+      black:  { img: 'cup-black.png',  label: 'Black',  material: 'Black · Aluminum' },
+      cherry: { img: 'cup-cherry.png', label: 'Cherry', material: 'Cherry · Aluminum' },
+      gold:   { img: 'cup-gold.png',   label: 'Gold',   material: 'Gold · Aluminum' },
+      pink:   { img: 'cup-pink.png',   label: 'Pink',   material: 'Pink · Aluminum' },
+    };
+    const param = new URLSearchParams(window.location.search).get('color') || 'white';
+    const variant = colors[param] || colors.white;
+
+    document.getElementById('gallery-main-img').src = variant.img;
+    document.getElementById('gallery-main-img').alt = 'Aluminum Tumbler — ' + variant.label;
+
+    const labelEl = document.querySelector('.label-accent');
+    if (labelEl) labelEl.textContent = variant.label + '  ·  Aluminum  ·  Includes Straw';
+
+    const addBtn = document.getElementById('add-to-cart');
+    if (addBtn) {
+      addBtn.dataset.material = variant.material;
+      addBtn.dataset.image = variant.img;
+    }
+
+    /* Quantity control */
+    let qty = 1;
+    const display = document.getElementById('qty-display');
+    document.getElementById('qty-inc').addEventListener('click', () => {
+      qty = Math.min(qty + 1, 10);
+      display.textContent = qty;
+    });
+    document.getElementById('qty-dec').addEventListener('click', () => {
+      qty = Math.max(qty - 1, 1);
+      display.textContent = qty;
+    });
+  </script>
+</body>
+</html>

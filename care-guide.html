@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Care Guide — The Jason Stewart Collection</title>
+  <meta name="description" content="How to care for your Stewart Cup — cleaning, storage, and keeping your aluminum cup looking its best." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .info-wrap {
+      padding-top: calc(var(--nav-h) + 96px);
+      padding-bottom: 128px;
+      max-width: 720px;
+      margin: 0 auto;
+      padding-left: 64px;
+      padding-right: 64px;
+    }
+    .info-headline {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: var(--charcoal);
+      margin: 16px 0 64px;
+    }
+    .info-section { margin-bottom: 56px; }
+    .info-section-title {
+      font-family: var(--f-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--stone);
+    }
+    .info-body {
+      font-size: 0.9375rem;
+      color: var(--charcoal-mid);
+      line-height: 1.85;
+    }
+    .info-body p { margin-bottom: 16px; }
+    .info-body p:last-child { margin-bottom: 0; }
+    .info-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .info-table tr { border-top: 1px solid var(--stone); }
+    .info-table tr:last-child { border-bottom: 1px solid var(--stone); }
+    .info-table td { padding: 14px 0; font-size: 0.9rem; color: var(--charcoal-mid); vertical-align: top; }
+    .info-table .td-label { font-weight: 500; color: var(--charcoal); width: 40%; }
+    .notice {
+      background: var(--ivory-warm);
+      border-left: 2px solid var(--champagne);
+      padding: 20px 24px;
+      margin-top: 24px;
+      font-size: 0.9rem;
+      color: var(--charcoal-mid);
+      line-height: 1.75;
+    }
+    @media (max-width: 768px) {
+      .info-wrap { padding: calc(var(--nav-h) + 56px) 24px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Cart Drawer ──────────────────────────────────────── -->
+  <div class="cart-overlay" id="cart-overlay" aria-hidden="true">
+    <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping cart" aria-modal="true">
+      <div class="cart-header">
+        <h2 class="cart-title f-display">Your Cart</h2>
+        <button class="cart-close" id="cart-close" aria-label="Close cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="cart-body" id="cart-body">
+        <div class="cart-empty">
+          <p class="cart-empty-text">Your cart is empty.</p>
+          <a href="shop.html" class="btn btn-text">Explore the Collection</a>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-amount f-display" id="cart-total">—</span>
+        </div>
+        <p class="cart-note">Complimentary shipping on all orders. Gift packaging available at checkout.</p>
+        <a href="https://buy.stripe.com/aFaaEY8PUaJQ2iH4QOgYU00" id="checkout-link" class="btn btn-fill" style="width:100%; justify-content:center; text-decoration:none;">Proceed to Checkout</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ─── Navigation ──────────────────────────────────────── -->
+  <nav class="site-nav is-ivory" id="site-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Jason Stewart Collection — Home">
+      <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:54px; width:auto; display:block;" />
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shop.html"  class="nav-link">Shop</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-cart-wrap">
+        <a href="#" class="nav-link" id="cart-toggle" aria-label="Open cart">Cart</a>
+        <span class="cart-badge" id="cart-badge" style="display:none;" aria-live="polite">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="info-wrap">
+
+    <p class="label-caps">Aluminum Tumbler</p>
+    <h1 class="info-headline">Care Guide</h1>
+
+    <div class="info-section reveal">
+      <h2 class="info-section-title f-display">Cleaning</h2>
+      <div class="info-body">
+        <p>Aluminum Tumbler is dishwasher safe. Place it on the top rack for best results. The powder coat finish is designed to hold up to regular machine washing without fading or chipping.</p>
+        <p>For hand washing, use warm water and mild dish soap. Avoid abrasive scrubbers or steel wool, which can scratch the finish over time.</p>
+        <table class="info-table" aria-label="Cleaning details">
+          <tbody>
+            <tr><td class="td-label">Dishwasher</td><td>Safe — top rack recommended</td></tr>
+            <tr><td class="td-label">Hand Wash</td><td>Warm water, mild soap</td></tr>
+            <tr><td class="td-label">Avoid</td><td>Abrasive scrubbers, steel wool, bleach-based cleaners</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="info-section reveal">
+      <h2 class="info-section-title f-display">The Straw</h2>
+      <div class="info-body">
+        <p>The included drinking straw is also dishwasher safe. Run it through with your cups or rinse it by hand after each use.</p>
+        <p>For a thorough clean, use a straw brush (not included) to remove any residue from the inside. This is especially useful if you use the cup for smoothies, juices, or thicker drinks.</p>
+      </div>
+    </div>
+
+    <div class="info-section reveal">
+      <h2 class="info-section-title f-display">Finish & Color</h2>
+      <div class="info-body">
+        <p>The powder coat finish on each cup is durable and fade-resistant under normal use. To keep the color looking its best, avoid soaking the cup in standing water for extended periods and store it in a dry location.</p>
+        <p>Minor scuffs from everyday use are normal and do not affect the performance of the cup. Deep scratches that expose bare aluminum should be kept dry to prevent oxidation.</p>
+      </div>
+    </div>
+
+    <div class="info-section reveal">
+      <h2 class="info-section-title f-display">What to Avoid</h2>
+      <div class="info-body">
+        <table class="info-table" aria-label="What to avoid">
+          <tbody>
+            <tr><td class="td-label">Microwave</td><td>Do not microwave — aluminum is not microwave safe</td></tr>
+            <tr><td class="td-label">Bleach</td><td>Avoid bleach or chlorine-based cleaners</td></tr>
+            <tr><td class="td-label">Oven</td><td>Not oven safe</td></tr>
+            <tr><td class="td-label">Prolonged soaking</td><td>Avoid leaving submerged in water for hours at a time</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="info-section reveal">
+      <h2 class="info-section-title f-display">Questions</h2>
+      <div class="info-body">
+        <p>If you have a question about your cup that isn't answered here, reach out directly. We're happy to help.</p>
+        <div style="margin-top:24px;">
+          <a href="shop.html" class="btn btn-text">Back to the Shop</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ─── Footer ───────────────────────────────────────────── -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="footer-grid" style="grid-template-columns:1.5fr 1fr 1fr;">
+      <div>
+        <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:72px; width:auto; display:block; margin-bottom:12px;" />
+        <p class="footer-tagline">Premium aluminum cups.</p>
+      </div>
+      <div>
+        <span class="footer-col-title">Explore</span>
+        <ul class="footer-links">
+          <li><a href="shop.html"  class="footer-link">Shop</a></li>
+          <li><a href="about.html" class="footer-link">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">Orders</span>
+        <ul class="footer-links">
+          <li><a href="shipping.html"   class="footer-link">Shipping</a></li>
+          <li><a href="returns.html"    class="footer-link">Returns</a></li>
+          <li><a href="care-guide.html" class="footer-link">Care Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 The Jason Stewart Collection. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

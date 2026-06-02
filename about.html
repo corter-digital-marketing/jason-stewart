@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Story — The Jason Stewart Collection</title>
+  <meta name="description" content="The Jason Stewart Collection — an aluminum cup with a drinking straw, available in five colors." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── About hero ────────────────────────────────────────── */
+    .about-hero {
+      padding-top: calc(var(--nav-h) + 100px);
+      padding-bottom: 96px;
+      padding-left: 64px;
+      padding-right: 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      align-items: end;
+      border-bottom: 1px solid var(--stone);
+    }
+    .about-hero-headline {
+      font-family: var(--f-display);
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      color: var(--charcoal);
+    }
+    .about-hero-intro {
+      font-size: 1.0625rem;
+      color: var(--charcoal-mid);
+      line-height: 1.85;
+      padding-bottom: 8px;
+    }
+
+    /* ── Portrait section ──────────────────────────────────── */
+    .portrait-section {
+      display: grid;
+      grid-template-columns: 40fr 60fr;
+      min-height: 640px;
+    }
+    .portrait-text {
+      padding: 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--ivory);
+    }
+    .portrait-body {
+      font-size: 0.9375rem;
+      color: var(--charcoal-mid);
+      line-height: 1.85;
+      margin-bottom: 24px;
+      max-width: 380px;
+    }
+    .portrait-image {
+      overflow: hidden;
+      background: var(--stone);
+    }
+    .portrait-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.4s var(--ease-out);
+    }
+    .portrait-image:hover img { transform: scale(1.03); }
+
+    /* ── Pull quote ────────────────────────────────────────── */
+    .pull-quote-section {
+      padding: 120px 64px;
+      background: var(--ivory-warm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .pull-quote {
+      font-family: var(--f-display);
+      font-size: clamp(1.75rem, 3.5vw, 3rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--charcoal);
+      max-width: 840px;
+    }
+    .pull-quote-attr {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--charcoal-muted);
+      margin-top: 40px;
+    }
+
+    /* ── Story body ────────────────────────────────────────── */
+    .story-body-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .story-body-image {
+      overflow: hidden;
+      background: var(--ivory-warm);
+    }
+    .story-body-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s var(--ease-out);
+    }
+    .story-body-image:hover img { transform: scale(1.04); }
+    .story-body-text {
+      padding: 80px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--ivory);
+    }
+    .story-body-heading {
+      font-family: var(--f-display);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--charcoal);
+      margin: 12px 0 24px;
+    }
+    .story-body-para {
+      font-size: 0.9375rem;
+      color: var(--charcoal-mid);
+      line-height: 1.85;
+      margin-bottom: 20px;
+      max-width: 400px;
+    }
+
+    /* ── Process (craft) ───────────────────────────────────── */
+    .craft-section {
+      padding: 120px 64px;
+      background: var(--charcoal);
+      color: var(--ivory);
+    }
+    .craft-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 96px;
+      align-items: start;
+    }
+    .craft-intro-headline {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: var(--ivory);
+      margin-top: 16px;
+    }
+    .craft-intro-body {
+      padding-top: 16px;
+      font-size: 0.9375rem;
+      color: rgba(247,243,236,0.55);
+      line-height: 1.85;
+    }
+
+    .process-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 80px;
+    }
+    .process-img-wrap {
+      position: relative;
+      overflow: hidden;
+      background: var(--charcoal-mid);
+      aspect-ratio: 3/4;
+    }
+    .process-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 800ms var(--ease-out);
+    }
+    .process-img-wrap:hover img { transform: scale(1.05); }
+    .process-step-label {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+    }
+    .process-step-num {
+      font-family: var(--f-display);
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(247,243,236,0.15);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .process-step-name {
+      font-family: var(--f-display);
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: rgba(247,243,236,0.85);
+    }
+    .process-step-desc {
+      font-size: 0.8rem;
+      color: rgba(247,243,236,0.45);
+      line-height: 1.6;
+      margin-top: 6px;
+    }
+
+    /* ── Studio note ───────────────────────────────────────── */
+    .studio-note {
+      border-top: 1px solid rgba(213,206,197,0.15);
+      padding-top: 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .studio-note-text {
+      font-size: 0.9375rem;
+      color: rgba(247,243,236,0.5);
+      line-height: 1.85;
+    }
+
+    /* ── Commission section ────────────────────────────────── */
+    .commission {
+      padding: 120px 64px;
+      text-align: center;
+      border-top: 1px solid var(--stone);
+    }
+    .commission-headline {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--charcoal);
+      margin: 16px 0 24px;
+    }
+    .commission-body {
+      font-size: 0.9375rem;
+      color: var(--charcoal-muted);
+      line-height: 1.8;
+      max-width: 480px;
+      margin: 0 auto 48px;
+    }
+
+    /* ── Mobile ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-hero {
+        grid-template-columns: 1fr;
+        padding: calc(var(--nav-h) + 56px) 24px 64px;
+        gap: 32px;
+      }
+      .portrait-section {
+        grid-template-columns: 1fr;
+      }
+      .portrait-image { min-height: 400px; order: -1; }
+      .portrait-text { padding: 56px 24px; }
+      .portrait-body { max-width: none; }
+      .pull-quote-section { padding: 80px 24px; }
+      .story-body-section { grid-template-columns: 1fr; }
+      .story-body-image { min-height: 360px; }
+      .story-body-text { padding: 48px 24px; }
+      .story-body-para { max-width: none; }
+      .craft-section { padding: 80px 24px; }
+      .craft-intro { grid-template-columns: 1fr; gap: 24px; margin-bottom: 56px; }
+      .process-images { grid-template-columns: 1fr; gap: 2px; }
+      .studio-note { grid-template-columns: 1fr; gap: 32px; }
+      .commission { padding: 80px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Cart Drawer ──────────────────────────────────────── -->
+  <div class="cart-overlay" id="cart-overlay" aria-hidden="true">
+    <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping cart" aria-modal="true">
+      <div class="cart-header">
+        <h2 class="cart-title f-display">Your Cart</h2>
+        <button class="cart-close" id="cart-close" aria-label="Close cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="cart-body" id="cart-body">
+        <div class="cart-empty">
+          <p class="cart-empty-text">Your cart is empty.</p>
+          <a href="shop.html" class="btn btn-text">Explore the Collection</a>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-amount f-display" id="cart-total">—</span>
+        </div>
+        <p class="cart-note">Complimentary shipping on all orders. Gift packaging available at checkout.</p>
+        <a href="https://buy.stripe.com/aFaaEY8PUaJQ2iH4QOgYU00" id="checkout-link" class="btn btn-fill" style="width:100%; justify-content:center; text-decoration:none;">Proceed to Checkout</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ─── Navigation ──────────────────────────────────────── -->
+  <nav class="site-nav is-ivory" id="site-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Jason Stewart Collection — Home">
+      <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:54px; width:auto; display:block;" />
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shop.html"  class="nav-link">Shop</a></li>
+      <li><a href="about.html" class="nav-link active">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-cart-wrap">
+        <a href="#" class="nav-link" id="cart-toggle" aria-label="Open cart">Cart</a>
+        <span class="cart-badge" id="cart-badge" style="display:none;" aria-live="polite">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ─── About Hero ───────────────────────────────────────── -->
+    <header class="about-hero">
+      <div>
+        <p class="label-caps reveal">The Jason Stewart Collection</p>
+        <h1 class="about-hero-headline reveal reveal-delay-1">The<br>Stewart Cup</h1>
+      </div>
+      <p class="about-hero-intro reveal reveal-delay-2">
+        One cup, done right. An aluminum cup with a drinking straw, available in five colors. Built for daily use and designed to last.
+      </p>
+    </header>
+
+    <!-- ─── Portrait + First Story ───────────────────────────── -->
+    <div class="portrait-section">
+      <div class="portrait-text reveal">
+        <p class="label-caps">The Brand</p>
+        <p class="portrait-body" style="margin-top:24px;">
+          The Jason Stewart Collection is built around a single conviction: a cup should be worth keeping. Not a novelty. Not something that sits in a cabinet. Something you reach for every morning, that feels right in your hand, and that you'll still have twenty years from now.
+        </p>
+        <p class="portrait-body">
+          Aluminum Tumbler is made from aluminum and finished in a powder coat that holds up to daily use. Lightweight, durable, and dishwasher safe. No special care required — just use it.
+        </p>
+        <div style="margin-top:32px;">
+          <a href="shop.html" class="btn btn-text">See the collection</a>
+        </div>
+      </div>
+      <div class="portrait-image reveal reveal-delay-1">
+        <img
+          src="cleanhand.png"
+          alt="Aluminum Tumbler being shared"
+          width="900" height="800"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- ─── Pull Quote ────────────────────────────────────────── -->
+    <blockquote class="pull-quote-section reveal">
+      <span class="rule rule-short rule-champagne" style="display:block;margin:0 auto 48px;" aria-hidden="true"></span>
+      <p class="pull-quote">
+        "Built to be used. Designed to last."
+      </p>
+      <p class="pull-quote-attr" aria-label="— The Jason Stewart Collection">— The Jason Stewart Collection</p>
+    </blockquote>
+
+    <!-- ─── Second Story Panel ───────────────────────────────── -->
+    <div class="story-body-section">
+      <div class="story-body-image reveal">
+        <img
+          src="ontherocks.JPG"
+          alt="Aluminum Tumbler — on the rocks"
+          width="800" height="900"
+          loading="lazy"
+        />
+      </div>
+      <div class="story-body-text reveal reveal-delay-1">
+        <p class="label-caps">The Cup</p>
+        <h2 class="story-body-heading">One cup. Five colors. Built to last.</h2>
+        <p class="story-body-para">
+          Aluminum Tumbler is an aluminum cup that comes with a matching drinking straw. Lightweight enough to take anywhere, durable enough to keep using.
+        </p>
+        <p class="story-body-para">
+          Available in White, Black, Cherry, Gold, and Pink. Each color is a powder coat finish applied consistently across the collection.
+        </p>
+        <div style="margin-top:40px;">
+          <a href="shop.html" class="btn btn-outline">View all pieces</a>
+        </div>
+      </div>
+    </div>
+
+
+  </main>
+
+  <!-- ─── Footer ───────────────────────────────────────────── -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="footer-grid" style="grid-template-columns:1.5fr 1fr 1fr;">
+      <div>
+        <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:72px; width:auto; display:block; margin-bottom:12px;" />
+        <p class="footer-tagline">Premium aluminum cups.</p>
+      </div>
+      <div>
+        <span class="footer-col-title">Explore</span>
+        <ul class="footer-links">
+          <li><a href="shop.html"  class="footer-link">Shop</a></li>
+          <li><a href="about.html" class="footer-link">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">Orders</span>
+        <ul class="footer-links">
+          <li><a href="shipping.html" class="footer-link">Shipping</a></li>
+          <li><a href="returns.html"  class="footer-link">Returns</a></li>
+          <li><a href="care-guide.html" class="footer-link">Care Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 The Jason Stewart Collection. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

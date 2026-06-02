@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Returns — The Jason Stewart Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .info-wrap {
+      padding-top: calc(var(--nav-h) + 96px);
+      padding-bottom: 128px;
+      max-width: 720px;
+      margin: 0 auto;
+      padding-left: 64px;
+      padding-right: 64px;
+    }
+    .info-headline {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: var(--charcoal);
+      margin: 16px 0 64px;
+    }
+    .info-section { margin-bottom: 56px; }
+    .info-section-title {
+      font-family: var(--f-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--charcoal);
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--stone);
+    }
+    .info-body {
+      font-size: 0.9375rem;
+      color: var(--charcoal-mid);
+      line-height: 1.85;
+    }
+    .info-body p { margin-bottom: 16px; }
+    .info-body p:last-child { margin-bottom: 0; }
+    .info-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .info-table tr { border-top: 1px solid var(--stone); }
+    .info-table tr:last-child { border-bottom: 1px solid var(--stone); }
+    .info-table td { padding: 14px 0; font-size: 0.9rem; color: var(--charcoal-mid); vertical-align: top; }
+    .info-table .td-label { font-weight: 500; color: var(--charcoal); width: 40%; }
+    .notice {
+      background: var(--ivory-warm);
+      border-left: 3px solid var(--champagne);
+      padding: 20px 24px;
+      margin-top: 24px;
+    }
+    .notice p { font-size: 0.875rem; color: var(--charcoal-mid); line-height: 1.75; margin: 0; }
+    @media (max-width: 768px) {
+      .info-wrap { padding: calc(var(--nav-h) + 56px) 24px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Cart Drawer ──────────────────────────────────────── -->
+  <div class="cart-overlay" id="cart-overlay" aria-hidden="true">
+    <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping cart" aria-modal="true">
+      <div class="cart-header">
+        <h2 class="cart-title f-display">Your Cart</h2>
+        <button class="cart-close" id="cart-close" aria-label="Close cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="cart-body" id="cart-body">
+        <div class="cart-empty">
+          <p class="cart-empty-text">Your cart is empty.</p>
+          <a href="shop.html" class="btn btn-text">Explore the Collection</a>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-amount f-display" id="cart-total">—</span>
+        </div>
+        <p class="cart-note">Complimentary shipping on all orders. Gift packaging available at checkout.</p>
+        <a href="https://buy.stripe.com/aFaaEY8PUaJQ2iH4QOgYU00" id="checkout-link" class="btn btn-fill" style="width:100%; justify-content:center; text-decoration:none;">Proceed to Checkout</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ─── Navigation ──────────────────────────────────────── -->
+  <nav class="site-nav is-ivory" id="site-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Jason Stewart Collection — Home">
+      <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:54px; width:auto; display:block;" />
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shop.html"  class="nav-link">Shop</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-cart-wrap">
+        <a href="#" class="nav-link" id="cart-toggle" aria-label="Open cart">Cart</a>
+        <span class="cart-badge" id="cart-badge" style="display:none;" aria-live="polite">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="info-wrap">
+      <p class="label-accent reveal">Orders</p>
+      <h1 class="info-headline reveal reveal-delay-1">Returns</h1>
+
+      <div class="info-section reveal reveal-delay-2">
+        <h2 class="info-section-title f-display">Our Policy</h2>
+        <div class="info-body">
+          <p>We want you to be completely satisfied with your purchase. If for any reason you are not, we accept returns within 14 days of delivery on unused, undamaged pieces in their original packaging.</p>
+          <table class="info-table" aria-label="Returns policy summary">
+            <tbody>
+              <tr><td class="td-label">Return Window</td><td>14 days from date of delivery</td></tr>
+              <tr><td class="td-label">Condition</td><td>Unused, in original packaging</td></tr>
+              <tr><td class="td-label">Return Shipping</td><td>Customer responsibility</td></tr>
+              <tr><td class="td-label">Refund Method</td><td>Original payment method</td></tr>
+              <tr><td class="td-label">Processing Time</td><td>5–7 business days after receipt</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="info-section reveal">
+        <h2 class="info-section-title f-display">A Note on Variation</h2>
+        <div class="info-body">
+          <p>Each cup is inspected before it ships. If you believe your cup arrived with a manufacturing defect rather than shipping damage, contact us and we will assess it on a case-by-case basis.</p>
+          <div class="notice">
+            <p>If you are unsure whether a variation in your piece is a defect or a natural characteristic of the making process, please contact us before initiating a return. We are happy to help.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section reveal">
+        <h2 class="info-section-title f-display">How to Return</h2>
+        <div class="info-body">
+          <p><strong style="font-weight:500;">Step 1.</strong> Email us at <a href="mailto:orders@jasonstewartcollection.com" style="border-bottom:1px solid var(--champagne);">orders@jasonstewartcollection.com</a> with your order number and reason for return. We will confirm your return is eligible within one business day.</p>
+          <p><strong style="font-weight:500;">Step 2.</strong> Pack the piece securely in its original packaging. We recommend using the original box and insert, as they are designed to protect the cup in transit.</p>
+          <p><strong style="font-weight:500;">Step 3.</strong> Ship to the address provided in your return confirmation email. Please use a tracked service — we cannot be responsible for items lost in return transit.</p>
+          <p><strong style="font-weight:500;">Step 4.</strong> Once we receive and inspect the piece, we will process your refund within 5–7 business days.</p>
+        </div>
+      </div>
+
+      <div class="info-section reveal">
+        <h2 class="info-section-title f-display">Damaged or Incorrect Orders</h2>
+        <div class="info-body">
+          <p>If your order arrives damaged or you received the wrong item, we will make it right at no cost to you. Please photograph the packaging and the piece and contact us within 48 hours of delivery.</p>
+          <p>Contact: <a href="mailto:orders@jasonstewartcollection.com" style="border-bottom:1px solid var(--champagne);">orders@jasonstewartcollection.com</a></p>
+        </div>
+      </div>
+
+      <div style="margin-top:64px;" class="reveal">
+        <a href="shipping.html" class="btn btn-text" style="margin-right:32px;">Shipping Info</a>
+        <a href="shop.html" class="btn btn-outline">Shop the Collection</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="footer-grid" style="grid-template-columns:1.5fr 1fr 1fr;">
+      <div>
+        <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:72px; width:auto; display:block; margin-bottom:12px;" />
+        <p class="footer-tagline">Premium aluminum cups.</p>
+      </div>
+      <div>
+        <span class="footer-col-title">Explore</span>
+        <ul class="footer-links">
+          <li><a href="shop.html"  class="footer-link">Shop</a></li>
+          <li><a href="about.html" class="footer-link">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">Orders</span>
+        <ul class="footer-links">
+          <li><a href="shipping.html" class="footer-link">Shipping</a></li>
+          <li><a href="returns.html"  class="footer-link">Returns</a></li>
+          <li><a href="care-guide.html" class="footer-link">Care Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 The Jason Stewart Collection. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

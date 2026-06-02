@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — The Jason Stewart Collection</title>
+  <meta name="description" content="Browse the full collection of cups and drinkware by Jason Stewart." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── Page hero ─────────────────────────────────────────── */
+    .shop-hero {
+      padding-top: calc(var(--nav-h) + 96px);
+      padding-bottom: 72px;
+      padding-left: 64px;
+      padding-right: 64px;
+      border-bottom: 1px solid var(--stone);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: 48px;
+    }
+    .shop-hero-headline {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: var(--charcoal);
+    }
+    .shop-hero-sub {
+      font-size: 0.9375rem;
+      color: var(--charcoal-muted);
+      line-height: 1.8;
+      max-width: 360px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Filter bar ────────────────────────────────────────── */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 64px;
+      border-bottom: 1px solid var(--stone);
+      background: var(--ivory);
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 10;
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 0;
+    }
+    .filter-tab {
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--charcoal-muted);
+      padding: 8px 20px;
+      border: 1px solid var(--stone);
+      border-right: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background-color 300ms var(--ease), color 300ms var(--ease);
+    }
+    .filter-tab:first-child { border-radius: 0; }
+    .filter-tab:last-child  { border-right: 1px solid var(--stone); }
+    .filter-tab:hover  { background: var(--ivory-warm); color: var(--charcoal); }
+    .filter-tab.active { background: var(--charcoal); color: var(--ivory); border-color: var(--charcoal); }
+    .filter-tab.active + .filter-tab { border-left-color: var(--charcoal); }
+    .filter-tab:focus-visible { outline: 2px solid var(--champagne); outline-offset: 2px; }
+
+    .filter-count {
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--charcoal-muted);
+    }
+
+    /* ── Grid wrapper ──────────────────────────────────────── */
+    .shop-grid-wrap {
+      padding: 64px;
+    }
+
+    /* ── Full-width editorial band ─────────────────────────── */
+    .editorial-band {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+      margin: 32px 0;
+    }
+    .editorial-image {
+      overflow: hidden;
+      background: var(--ivory-warm);
+    }
+    .editorial-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s var(--ease-out);
+    }
+    .editorial-image:hover img { transform: scale(1.04); }
+    .editorial-copy {
+      background: var(--charcoal);
+      color: var(--ivory);
+      padding: 64px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .editorial-quote {
+      font-family: var(--f-display);
+      font-size: clamp(1.75rem, 2.8vw, 2.5rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--ivory);
+      margin: 12px 0 32px;
+    }
+
+    @media (max-width: 900px) {
+      .shop-hero {
+        grid-template-columns: 1fr;
+        padding: calc(var(--nav-h) + 56px) 24px 56px;
+        gap: 24px;
+      }
+      .shop-hero-sub { max-width: none; }
+      .filter-bar { padding: 20px 24px; gap: 16px; }
+      .filter-tabs { flex-wrap: wrap; }
+      .shop-grid-wrap { padding: 40px 24px; }
+      .editorial-band { grid-template-columns: 1fr; }
+      .editorial-image { min-height: 320px; }
+      .editorial-copy { padding: 48px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Cart Drawer ──────────────────────────────────────── -->
+  <div class="cart-overlay" id="cart-overlay" aria-hidden="true">
+    <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-label="Shopping cart" aria-modal="true">
+      <div class="cart-header">
+        <h2 class="cart-title f-display">Your Cart</h2>
+        <button class="cart-close" id="cart-close" aria-label="Close cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="cart-body" id="cart-body">
+        <div class="cart-empty">
+          <p class="cart-empty-text">Your cart is empty.</p>
+          <a href="shop.html" class="btn btn-text">Explore the Collection</a>
+        </div>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-subtotal">
+          <span class="cart-subtotal-label">Subtotal</span>
+          <span class="cart-subtotal-amount f-display" id="cart-total">—</span>
+        </div>
+        <p class="cart-note">Complimentary shipping on all orders. Gift packaging available at checkout.</p>
+        <a href="https://buy.stripe.com/aFaaEY8PUaJQ2iH4QOgYU00" id="checkout-link" class="btn btn-fill" style="width:100%; justify-content:center; text-decoration:none;">Proceed to Checkout</a>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ─── Navigation ──────────────────────────────────────── -->
+  <nav class="site-nav is-ivory" id="site-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Jason Stewart Collection — Home">
+      <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:54px; width:auto; display:block;" />
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shop.html"  class="nav-link active">Shop</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-cart-wrap">
+        <a href="#" class="nav-link" id="cart-toggle" aria-label="Open cart">Cart</a>
+        <span class="cart-badge" id="cart-badge" style="display:none;" aria-live="polite">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── Shop Hero ────────────────────────────────────────── -->
+  <header class="shop-hero">
+    <div>
+      <p class="label-caps">Aluminum Tumbler</p>
+      <h1 class="shop-hero-headline">The<br>Collection</h1>
+    </div>
+    <div>
+      <p class="shop-hero-sub">
+        An aluminum cup with a drinking straw. Available in five colors, built for everyday use.
+      </p>
+      <p class="label-caps" style="color:var(--champagne);">6 pieces currently available</p>
+    </div>
+  </header>
+
+
+  <!-- ─── Product Grid ─────────────────────────────────────── -->
+  <main class="shop-grid-wrap">
+    <div class="product-grid">
+
+      <a href="product.html?color=white" class="product-card reveal" aria-label="Aluminum Tumbler — White">
+        <div class="card-image">
+          <img src="cup-white.png" alt="Aluminum Tumbler in White" width="480" height="640" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <p class="card-label label-caps">White</p>
+          <p class="card-price">$30</p>
+        </div>
+      </a>
+
+      <a href="product.html?color=black" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Black">
+        <div class="card-image">
+          <img src="cup-black.png" alt="Aluminum Tumbler in Black" width="480" height="640" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <p class="card-label label-caps">Black</p>
+          <p class="card-price">$30</p>
+        </div>
+      </a>
+
+      <a href="product.html?color=cherry" class="product-card reveal reveal-delay-2" aria-label="Aluminum Tumbler — Cherry">
+        <div class="card-image">
+          <img src="cup-cherry.png" alt="Aluminum Tumbler in Cherry" width="480" height="640" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <p class="card-label label-caps">Cherry</p>
+          <p class="card-price">$30</p>
+        </div>
+      </a>
+
+      <a href="product.html?color=gold" class="product-card reveal" aria-label="Aluminum Tumbler — Gold">
+        <div class="card-image">
+          <img src="cup-gold.png" alt="Aluminum Tumbler in Gold" width="480" height="640" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <p class="card-label label-caps">Gold</p>
+          <p class="card-price">$30</p>
+        </div>
+      </a>
+
+      <a href="product.html?color=pink" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Pink">
+        <div class="card-image">
+          <img src="cup-pink.png" alt="Aluminum Tumbler in Pink" width="480" height="640" loading="lazy" />
+        </div>
+        <div class="card-info">
+          <p class="card-label label-caps">Pink</p>
+          <p class="card-price">$30</p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ── Editorial Band ──────────────────────────────────── -->
+    <div class="editorial-band reveal" style="margin-top:96px;">
+      <div class="editorial-image">
+        <img
+          src="cleanhand.png"
+          alt="Aluminum Tumbler — shared between two"
+          width="800" height="700"
+          loading="lazy"
+        />
+      </div>
+      <div class="editorial-copy">
+        <p class="label-accent">On making</p>
+        <p class="editorial-quote">
+          "A cup you actually want to use, every single day."
+        </p>
+        <p style="font-size:0.875rem; color:rgba(247,243,236,0.45); margin-bottom:32px;">— Jason Stewart</p>
+        <a href="about.html" class="btn btn-text btn-text-light">Read the full story</a>
+      </div>
+    </div>
+
+    <!-- ── Shipping Note ───────────────────────────────────── -->
+    <div class="reveal" style="margin-top:96px; padding-top:64px; border-top:1px solid var(--stone); display:grid; grid-template-columns:repeat(3,1fr); gap:48px; padding-bottom:32px;">
+      <div>
+        <p class="label-caps" style="margin-bottom:12px;">Shipping</p>
+        <p style="font-size:0.9rem; color:var(--charcoal-muted); line-height:1.75;">Complimentary on all domestic orders. Each piece ships in custom packaging, gift-ready by default.</p>
+      </div>
+      <div>
+        <p class="label-caps" style="margin-bottom:12px;">Returns</p>
+        <p style="font-size:0.9rem; color:var(--charcoal-muted); line-height:1.75;">14-day returns on unused pieces. 14-day returns on unused pieces in original condition.</p>
+      </div>
+      <div>
+        <p class="label-caps" style="margin-bottom:12px;">Made to Order</p>
+        <p style="font-size:0.9rem; color:var(--charcoal-muted); line-height:1.75;">In-stock pieces ship in 3–5 days. Custom commissions are available — contact the studio to begin.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ─── Footer ───────────────────────────────────────────── -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="footer-grid" style="grid-template-columns:1.5fr 1fr 1fr;">
+      <div>
+        <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:72px; width:auto; display:block; margin-bottom:12px;" />
+        <p class="footer-tagline">Premium aluminum cups.</p>
+      </div>
+      <div>
+        <span class="footer-col-title">Explore</span>
+        <ul class="footer-links">
+          <li><a href="shop.html"  class="footer-link">Shop</a></li>
+          <li><a href="about.html" class="footer-link">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <span class="footer-col-title">Orders</span>
+        <ul class="footer-links">
+          <li><a href="shipping.html" class="footer-link">Shipping</a></li>
+          <li><a href="returns.html"  class="footer-link">Returns</a></li>
+          <li><a href="care-guide.html" class="footer-link">Care Guide</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 The Jason Stewart Collection. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

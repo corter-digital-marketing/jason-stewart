@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System — The Jason Stewart Collection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: {
+              DEFAULT: '#1C1917',
+              mid:     '#3D3732',
+              muted:   '#6B6460',
+            },
+            ivory: {
+              DEFAULT: '#F7F3EC',
+              warm:    '#EDE7DC',
+            },
+            stone: {
+              DEFAULT: '#D5CEC5',
+              dark:    '#BDB5AB',
+            },
+            champagne: {
+              DEFAULT: '#B8974A',
+              light:   '#D4B87A',
+              deep:    '#96793A',
+            },
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans:    ['"DM Sans"', 'system-ui', 'sans-serif'],
+          },
+          spacing: {
+            '18': '4.5rem',
+            '22': '5.5rem',
+            '26': '6.5rem',
+            '30': '7.5rem',
+            '34': '8.5rem',
+            '38': '9.5rem',
+            '42': '10.5rem',
+            '72': '18rem',
+            '84': '21rem',
+            '96': '24rem',
+            '128': '32rem',
+          },
+          fontSize: {
+            'display-xl': ['clamp(4rem, 9vw, 8rem)',   { lineHeight: '1.0',  letterSpacing: '-0.03em' }],
+            'display':    ['clamp(3rem, 6vw, 5.5rem)', { lineHeight: '1.05', letterSpacing: '-0.025em' }],
+            'display-sm': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.1',  letterSpacing: '-0.02em' }],
+            'heading':    ['clamp(1.5rem, 3vw, 2.25rem)', { lineHeight: '1.2', letterSpacing: '-0.015em' }],
+            'subheading': ['1.125rem',  { lineHeight: '1.4', letterSpacing: '0' }],
+            'body':       ['1rem',      { lineHeight: '1.75' }],
+            'body-sm':    ['0.9375rem', { lineHeight: '1.7' }],
+            'label':      ['0.6875rem', { lineHeight: '1.5', letterSpacing: '0.12em' }],
+            'caption':    ['0.8125rem', { lineHeight: '1.6', letterSpacing: '0.04em' }],
+          },
+          letterSpacing: {
+            'widest-label': '0.14em',
+          },
+          transitionTimingFunction: {
+            'luxury': 'cubic-bezier(0.4, 0, 0.2, 1)',
+            'reveal': 'cubic-bezier(0.16, 1, 0.3, 1)',
+          },
+          transitionDuration: {
+            '400': '400ms',
+            '600': '600ms',
+            '800': '800ms',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #F7F3EC;
+      color: #1C1917;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+    /* Fine rule utility */
+    .rule { border-color: #D5CEC5; }
+
+    /* Label / small caps */
+    .label-caps {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #6B6460;
+    }
+
+    /* Champagne underline */
+    .link-accent {
+      text-decoration: none;
+      border-bottom: 1px solid #B8974A;
+      color: inherit;
+      transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .link-accent:hover { opacity: 0.6; }
+
+    /* Color swatch */
+    .swatch {
+      width: 100%;
+      height: 80px;
+      border-radius: 2px;
+    }
+    .swatch-sm {
+      width: 100%;
+      height: 48px;
+      border-radius: 2px;
+    }
+
+    /* Token display */
+    .token-name {
+      font-family: 'DM Sans', monospace;
+      font-size: 0.75rem;
+      color: #6B6460;
+    }
+    .token-value {
+      font-family: monospace;
+      font-size: 0.6875rem;
+      color: #3D3732;
+      letter-spacing: 0.04em;
+    }
+
+    /* Button: Primary */
+    .btn-primary {
+      display: inline-block;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #F7F3EC;
+      background-color: #1C1917;
+      padding: 14px 32px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 400ms cubic-bezier(0.4,0,0.2,1),
+                  opacity 400ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .btn-primary:hover { background-color: #3D3732; }
+    .btn-primary:focus-visible {
+      outline: 2px solid #B8974A;
+      outline-offset: 3px;
+    }
+    .btn-primary:active { opacity: 0.8; }
+
+    /* Button: Ghost */
+    .btn-ghost {
+      display: inline-block;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #1C1917;
+      background: transparent;
+      padding: 13px 31px;
+      border: 1px solid #1C1917;
+      cursor: pointer;
+      transition: all 400ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .btn-ghost:hover {
+      background-color: #1C1917;
+      color: #F7F3EC;
+    }
+    .btn-ghost:focus-visible {
+      outline: 2px solid #B8974A;
+      outline-offset: 3px;
+    }
+
+    /* Button: Accent underline (text CTA) */
+    .btn-text {
+      display: inline-block;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1C1917;
+      background: none;
+      border: none;
+      border-bottom: 1px solid #B8974A;
+      padding: 0 0 3px 0;
+      cursor: pointer;
+      transition: opacity 400ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .btn-text:hover { opacity: 0.55; }
+    .btn-text:focus-visible {
+      outline: 2px solid #B8974A;
+      outline-offset: 3px;
+    }
+
+    /* Navigation */
+    .nav-link {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1C1917;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: border-color 400ms cubic-bezier(0.4,0,0.2,1), opacity 300ms;
+    }
+    .nav-link:hover { border-color: #B8974A; }
+    .nav-link.active { border-color: #B8974A; }
+    .nav-link:focus-visible {
+      outline: 2px solid #B8974A;
+      outline-offset: 3px;
+    }
+
+    /* Product card */
+    .product-card { background: transparent; }
+    .product-card-img {
+      overflow: hidden;
+      background: #EDE7DC;
+    }
+    .product-card-img img {
+      width: 100%;
+      display: block;
+      transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card:hover .product-card-img img { transform: scale(1.03); }
+
+    /* Fine rule with champagne */
+    .rule-accent {
+      border: none;
+      height: 1px;
+      background: #D5CEC5;
+    }
+    .rule-champagne {
+      border: none;
+      height: 1px;
+      background: #B8974A;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B8974A;
+    }
+
+    /* Spacing preview block */
+    .space-block {
+      background-color: #EDE7DC;
+      border-right: 2px solid #B8974A;
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER ─────────────────────────────────────────────── -->
+  <header style="padding: 48px 64px 40px; border-bottom: 1px solid #D5CEC5;">
+    <p class="label-caps" style="color: #B8974A; margin-bottom: 12px;">Design System</p>
+    <h1 class="font-display" style="font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; color: #1C1917; letter-spacing: -0.025em; line-height: 1.05;">
+      The Jason Stewart<br>Collection
+    </h1>
+    <p style="font-size: 0.9375rem; color: #6B6460; margin-top: 12px; max-width: 480px; line-height: 1.7;">
+      Heirloom-quality drinkware. This document defines the visual language of the brand — color, type, space, and components. Review and approve before page construction begins.
+    </p>
+  </header>
+
+  <main style="padding: 0 64px 128px; max-width: 1200px;">
+
+    <!-- ─── SECTION: COLOR ──────────────────────────────────── -->
+    <section style="padding-top: 80px;">
+      <p class="section-label" style="margin-bottom: 8px;">01</p>
+      <h2 class="font-display" style="font-size: 2rem; font-weight: 400; color: #1C1917; letter-spacing: -0.02em; margin-bottom: 8px;">Color Tokens</h2>
+      <p style="font-size: 0.9375rem; color: #6B6460; margin-bottom: 48px; line-height: 1.7;">
+        Three-color palette. Warm neutrals dominate; champagne appears only in fine rules, hover states, and accent moments.
+      </p>
+
+      <!-- Primary Palette -->
+      <p class="label-caps" style="margin-bottom: 20px; color: #6B6460;">Primary Neutrals</p>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 48px;">
+
+        <div>
+          <div class="swatch" style="background:#1C1917; margin-bottom: 10px;"></div>
+          <p class="token-name">charcoal</p>
+          <p class="token-value">#1C1917</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Primary text, headlines, buttons</p>
+        </div>
+
+        <div>
+          <div class="swatch" style="background:#3D3732; margin-bottom: 10px;"></div>
+          <p class="token-name">charcoal.mid</p>
+          <p class="token-value">#3D3732</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Secondary text, hover states</p>
+        </div>
+
+        <div>
+          <div class="swatch" style="background:#6B6460; margin-bottom: 10px;"></div>
+          <p class="token-name">charcoal.muted</p>
+          <p class="token-value">#6B6460</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Meta text, captions, labels</p>
+        </div>
+
+        <div>
+          <div class="swatch" style="background:#F7F3EC; border: 1px solid #D5CEC5; margin-bottom: 10px;"></div>
+          <p class="token-name">ivory</p>
+          <p class="token-value">#F7F3EC</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Site background</p>
+        </div>
+
+        <div>
+          <div class="swatch" style="background:#EDE7DC; border: 1px solid #D5CEC5; margin-bottom: 10px;"></div>
+          <p class="token-name">ivory.warm</p>
+          <p class="token-value">#EDE7DC</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Card surfaces, image backgrounds</p>
+        </div>
+
+      </div>
+
+      <!-- Secondary / Borders -->
+      <p class="label-caps" style="margin-bottom: 20px; color: #6B6460;">Structure</p>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 48px;">
+
+        <div>
+          <div class="swatch-sm" style="background:#D5CEC5; border: 1px solid #BDB5AB; margin-bottom: 10px;"></div>
+          <p class="token-name">stone</p>
+          <p class="token-value">#D5CEC5</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Borders, dividers</p>
+        </div>
+
+        <div>
+          <div class="swatch-sm" style="background:#BDB5AB; margin-bottom: 10px;"></div>
+          <p class="token-name">stone.dark</p>
+          <p class="token-value">#BDB5AB</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Heavier borders, ruled tables</p>
+        </div>
+
+      </div>
+
+      <!-- Accent -->
+      <p class="label-caps" style="margin-bottom: 20px; color: #6B6460;">Accent — Use Sparingly</p>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 16px;">
+
+        <div>
+          <div class="swatch-sm" style="background:#B8974A; margin-bottom: 10px;"></div>
+          <p class="token-name">champagne</p>
+          <p class="token-value">#B8974A</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Links, focus rings, fine rules</p>
+        </div>
+
+        <div>
+          <div class="swatch-sm" style="background:#D4B87A; margin-bottom: 10px;"></div>
+          <p class="token-name">champagne.light</p>
+          <p class="token-value">#D4B87A</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Subtle tint, hover glow</p>
+        </div>
+
+        <div>
+          <div class="swatch-sm" style="background:#96793A; margin-bottom: 10px;"></div>
+          <p class="token-name">champagne.deep</p>
+          <p class="token-value">#96793A</p>
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 4px;">Active states on light surfaces</p>
+        </div>
+
+      </div>
+
+      <div style="background: #EDE7DC; padding: 20px 24px; border-left: 3px solid #B8974A; margin-top: 32px;">
+        <p style="font-size: 0.8125rem; color: #3D3732; line-height: 1.7;">
+          <strong style="font-weight: 500;">Accent discipline:</strong> Champagne should appear fewer than 5 times per page view. It exists to draw the eye once — not to pattern. If you can read the page without noticing it, the accent is working.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule-accent" style="margin-top: 80px;" />
+
+    <!-- ─── SECTION: TYPOGRAPHY ────────────────────────────── -->
+    <section style="padding-top: 80px;">
+      <p class="section-label" style="margin-bottom: 8px;">02</p>
+      <h2 class="font-display" style="font-size: 2rem; font-weight: 400; color: #1C1917; letter-spacing: -0.02em; margin-bottom: 8px;">Type System</h2>
+      <p style="font-size: 0.9375rem; color: #6B6460; margin-bottom: 48px; line-height: 1.7;">
+        Two typefaces. The display serif carries the brand's personality. The sans-serif stays neutral and serves.
+      </p>
+
+      <!-- Typefaces -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-bottom: 64px;">
+
+        <div style="padding: 40px; background: #EDE7DC;">
+          <p class="label-caps" style="margin-bottom: 24px;">Display Serif</p>
+          <p class="font-display" style="font-size: 2.5rem; font-weight: 300; color: #1C1917; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 12px;">
+            Cormorant<br>Garamond
+          </p>
+          <p style="font-size: 0.8125rem; color: #6B6460; margin-bottom: 20px; line-height: 1.7;">Headlines, product names, pull quotes, drop caps</p>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span class="font-display" style="font-size: 1.5rem; font-weight: 300; color: #3D3732;">Light</span>
+            <span class="font-display" style="font-size: 1.5rem; font-weight: 400; color: #1C1917;">Regular</span>
+            <span class="font-display" style="font-size: 1.5rem; font-style: italic; font-weight: 400; color: #1C1917;">Italic</span>
+            <span class="font-display" style="font-size: 1.5rem; font-weight: 500; color: #1C1917;">Medium</span>
+          </div>
+        </div>
+
+        <div style="padding: 40px; background: #EDE7DC;">
+          <p class="label-caps" style="margin-bottom: 24px;">Body Sans</p>
+          <p style="font-size: 2.5rem; font-weight: 300; color: #1C1917; line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 12px;">
+            DM Sans
+          </p>
+          <p style="font-size: 0.8125rem; color: #6B6460; margin-bottom: 20px; line-height: 1.7;">Navigation, body copy, prices, labels, UI text</p>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-size: 1.25rem; font-weight: 300; color: #3D3732;">Light</span>
+            <span style="font-size: 1.25rem; font-weight: 400; color: #1C1917;">Regular</span>
+            <span style="font-size: 1.25rem; font-weight: 500; color: #1C1917;">Medium</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Type Scale -->
+      <p class="label-caps" style="margin-bottom: 32px; color: #6B6460;">Type Scale</p>
+
+      <div style="border-top: 1px solid #D5CEC5;">
+
+        <div style="display: grid; grid-template-columns: 160px 1fr 140px; gap: 24px; align-items: center; padding: 28px 0; border-bottom: 1px solid #D5CEC5;">
+          <div>
+            <p class="token-name">display-xl</p>
+            <p class="token-value">clamp(4–8rem)</p>
+          </div>
+          <p class="font-display" style="font-size: clamp(3rem,6vw,5rem); font-weight: 300; color: #1C1917; letter-spacing: -0.03em; line-height: 1.0;">Handcrafted</p>
+          <p style="font-size: 0.75rem; color: #6B6460;">Hero headline</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 160px 1fr 140px; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid #D5CEC5;">
+          <div>
+            <p class="token-name">display</p>
+            <p class="token-value">clamp(3–5.5rem)</p>
+          </div>
+          <p class="font-display" style="font-size: clamp(2.5rem,4.5vw,4rem); font-weight: 300; color: #1C1917; letter-spacing: -0.025em; line-height: 1.05;">The Collection</p>
+          <p style="font-size: 0.75rem; color: #6B6460;">Section heading</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 160px 1fr 140px; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid #D5CEC5;">
+          <div>
+            <p class="token-name">display-sm</p>
+            <p class="token-value">clamp(2–3.5rem)</p>
+          </div>
+          <p class="font-display" style="font-size: clamp(1.75rem,3vw,2.75rem); font-weight: 400; color: #1C1917; letter-spacing: -0.02em; line-height: 1.1;">The Ceremony Cup</p>
+          <p style="font-size: 0.75rem; color: #6B6460;">Product name</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 160px 1fr 140px; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid #D5CEC5;">
+          <div>
+            <p class="token-name">heading</p>
+            <p class="token-value">1.5–2.25rem</p>
+          </div>
+          <p class="font-display" style="font-size: 1.75rem; font-weight: 400; font-style: italic; color: #1C1917; letter-spacing: -0.015em; line-height: 1.2;">The craft behind the form</p>
+          <p style="font-size: 0.75rem; color: #6B6460;">Subhead, pull quote</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 160px 1fr 140px; gap: 24px; align-items: center; padding: 20px 0; border-bottom: 1px solid #D5CEC5;">
+          <div>
+            <p class="token-name">body</p>
+            <p class="token-value">1rem / 1.75lh</p>
+          </div>
+          <p style="font-size: 1rem; color: #3D3732; line-height: 1.75; max-width: 480px;">
+            Each cup begins as a sketch. From sketch it becomes a pattern, from pattern a mold, and from mold — after many firings — a vessel that holds heat the way good things hold meaning.
+          </p>
+          <p style="font-size: 0.75rem; color: #6B6460;">Body copy</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 160px 1fr 140px; gap: 24px; align-items: center; padding: 20px 0; border-bottom: 1px solid #D5CEC5;">
+          <div>
+            <p class="token-name">body-sm</p>
+            <p class="token-value">0.9375rem</p>
+          </div>
+          <p style="font-size: 0.9375rem; color: #6B6460; line-height: 1.7;">Materials: Stoneware. Fired at cone 10. Food-safe glaze. Dishwasher safe. Ships in 5–7 business days.</p>
+          <p style="font-size: 0.75rem; color: #6B6460;">Details, meta</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 160px 1fr 140px; gap: 24px; align-items: center; padding: 20px 0; border-bottom: 1px solid #D5CEC5;">
+          <div>
+            <p class="token-name">label</p>
+            <p class="token-value">0.6875rem / 0.14em</p>
+          </div>
+          <p class="label-caps">New Arrival &nbsp;·&nbsp; Limited Edition &nbsp;·&nbsp; Handcrafted in the USA</p>
+          <p style="font-size: 0.75rem; color: #6B6460;">Small caps labels</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 160px 1fr 140px; gap: 24px; align-items: center; padding: 20px 0;">
+          <div>
+            <p class="token-name">price</p>
+            <p class="token-value">DM Sans regular</p>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 12px;">
+            <span style="font-size: 1.125rem; font-weight: 400; color: #1C1917;">$148</span>
+            <span style="font-size: 0.875rem; color: #6B6460; font-weight: 300;">USD</span>
+          </div>
+          <p style="font-size: 0.75rem; color: #6B6460;">Price — quiet, not bold</p>
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="rule-accent" style="margin-top: 80px;" />
+
+    <!-- ─── SECTION: SPACING ───────────────────────────────── -->
+    <section style="padding-top: 80px;">
+      <p class="section-label" style="margin-bottom: 8px;">03</p>
+      <h2 class="font-display" style="font-size: 2rem; font-weight: 400; color: #1C1917; letter-spacing: -0.02em; margin-bottom: 8px;">Spacing Scale</h2>
+      <p style="font-size: 0.9375rem; color: #6B6460; margin-bottom: 48px; line-height: 1.7;">
+        4px base grid. Whitespace is the primary luxury signal — the scale is generous by design.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <!-- Only show the meaningful ones -->
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">4px</p>
+          <p class="token-value">space-1</p>
+          <div class="space-block" style="height: 4px; width: 4px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">8px</p>
+          <p class="token-value">space-2</p>
+          <div class="space-block" style="height: 8px; width: 8px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">16px</p>
+          <p class="token-value">space-4</p>
+          <div class="space-block" style="height: 16px; width: 16px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">24px</p>
+          <p class="token-value">space-6</p>
+          <div class="space-block" style="height: 24px; width: 24px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">32px</p>
+          <p class="token-value">space-8</p>
+          <div class="space-block" style="height: 32px; width: 32px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">48px</p>
+          <p class="token-value">space-12</p>
+          <div class="space-block" style="height: 48px; width: 48px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">64px</p>
+          <p class="token-value">space-16</p>
+          <div class="space-block" style="height: 64px; width: 64px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">96px</p>
+          <p class="token-value">space-24</p>
+          <div class="space-block" style="height: 96px; width: 96px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">128px</p>
+          <p class="token-value">space-32</p>
+          <div class="space-block" style="height: 128px; width: 128px;"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 80px 80px 1fr; gap: 16px; align-items: center;">
+          <p class="token-name">192px</p>
+          <p class="token-value">space-48 ↑</p>
+          <div style="font-size: 0.75rem; color: #6B6460;">Section padding top/bottom</div>
+        </div>
+      </div>
+
+      <div style="background: #EDE7DC; padding: 20px 24px; border-left: 3px solid #B8974A; margin-top: 40px;">
+        <p style="font-size: 0.8125rem; color: #3D3732; line-height: 1.7;">
+          <strong style="font-weight: 500;">Rule of thumb:</strong> When deciding between two spacing values, choose the larger one. Sections breathe at 96–192px vertical padding. Element gaps live at 24–48px. Tight micro-spacing stays at 8–16px.
+        </p>
+      </div>
+    </section>
+
+    <hr class="rule-accent" style="margin-top: 80px;" />
+
+    <!-- ─── SECTION: COMPONENTS ────────────────────────────── -->
+    <section style="padding-top: 80px;">
+      <p class="section-label" style="margin-bottom: 8px;">04</p>
+      <h2 class="font-display" style="font-size: 2rem; font-weight: 400; color: #1C1917; letter-spacing: -0.02em; margin-bottom: 8px;">Core Components</h2>
+      <p style="font-size: 0.9375rem; color: #6B6460; margin-bottom: 64px; line-height: 1.7;">
+        Every interactive element shown at full fidelity. Hover over buttons and links to see all states.
+      </p>
+
+      <!-- Navigation -->
+      <p class="label-caps" style="margin-bottom: 24px; color: #6B6460;">Navigation</p>
+      <div style="padding: 28px 40px; background: #F7F3EC; border: 1px solid #D5CEC5; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+        <!-- Logo -->
+        <div>
+          <p class="font-display" style="font-size: 1.0625rem; font-weight: 400; color: #1C1917; letter-spacing: 0.06em; text-transform: uppercase;">
+            Jason Stewart
+          </p>
+          <p class="label-caps" style="color: #6B6460; font-size: 0.5625rem; margin-top: 1px;">Collection</p>
+        </div>
+        <!-- Links -->
+        <nav style="display: flex; gap: 40px; align-items: center;">
+          <a href="#" class="nav-link active">Shop</a>
+          <a href="#" class="nav-link">The Story</a>
+          <a href="#" class="nav-link">Craft</a>
+          <a href="#" class="nav-link">Journal</a>
+        </nav>
+        <!-- Actions -->
+        <div style="display: flex; gap: 28px; align-items: center;">
+          <a href="#" class="nav-link">Search</a>
+          <a href="#" class="nav-link" style="position: relative;">
+            Cart
+            <span style="position: absolute; top: -8px; right: -12px; background: #B8974A; color: #F7F3EC; font-size: 0.5rem; font-weight: 500; letter-spacing: 0.04em; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">2</span>
+          </a>
+        </div>
+      </div>
+      <p style="font-size: 0.75rem; color: #6B6460; margin-bottom: 64px;">Hover links to see champagne underline. Active state shown on "Shop".</p>
+
+      <!-- Buttons -->
+      <p class="label-caps" style="margin-bottom: 24px; color: #6B6460;">Buttons & CTAs</p>
+      <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-bottom: 64px; padding: 40px; background: #EDE7DC;">
+        <button class="btn-primary">Add to Cart</button>
+        <button class="btn-ghost">Explore the Collection</button>
+        <button class="btn-text">View All Pieces</button>
+      </div>
+
+      <!-- Product Card -->
+      <p class="label-caps" style="margin-bottom: 24px; color: #6B6460;">Product Card</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 64px;">
+
+        <div class="product-card">
+          <div class="product-card-img" style="aspect-ratio: 3/4;">
+            <img src="https://placehold.co/480x640/EDE7DC/6B6460?text=Product+Photo" alt="Ceremony Cup in Ash Glaze" />
+          </div>
+          <div style="padding-top: 20px;">
+            <p class="label-caps" style="margin-bottom: 8px;">New Arrival</p>
+            <p class="font-display" style="font-size: 1.25rem; font-weight: 400; color: #1C1917; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 8px;">The Ceremony Cup</p>
+            <p style="font-size: 0.875rem; color: #6B6460;">Ash glaze on stoneware</p>
+            <p style="font-size: 1rem; font-weight: 400; color: #1C1917; margin-top: 12px;">$148</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img" style="aspect-ratio: 3/4;">
+            <img src="https://placehold.co/480x640/D5CEC5/3D3732?text=Product+Photo" alt="Tenmoku Vessel" />
+          </div>
+          <div style="padding-top: 20px;">
+            <p class="label-caps" style="margin-bottom: 8px;">Limited Edition</p>
+            <p class="font-display" style="font-size: 1.25rem; font-weight: 400; color: #1C1917; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 8px;">Tenmoku Vessel</p>
+            <p style="font-size: 0.875rem; color: #6B6460;">Iron glaze on porcelain</p>
+            <p style="font-size: 1rem; font-weight: 400; color: #1C1917; margin-top: 12px;">$228</p>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-img" style="aspect-ratio: 3/4; background: #1C1917;">
+            <img src="https://placehold.co/480x640/1C1917/6B6460?text=Dark+Studio+Shot" alt="Obsidian Mug" />
+          </div>
+          <div style="padding-top: 20px;">
+            <p class="label-caps" style="margin-bottom: 8px;">Signature</p>
+            <p class="font-display" style="font-size: 1.25rem; font-weight: 400; color: #1C1917; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 8px;">The Obsidian Mug</p>
+            <p style="font-size: 0.875rem; color: #6B6460;">Matte black on stoneware</p>
+            <p style="font-size: 1rem; font-weight: 400; color: #1C1917; margin-top: 12px;">$165</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Rules & Dividers -->
+      <p class="label-caps" style="margin-bottom: 24px; color: #6B6460;">Dividers</p>
+      <div style="display: flex; flex-direction: column; gap: 24px; margin-bottom: 64px; padding: 32px; background: #EDE7DC;">
+        <div>
+          <hr class="rule-accent" />
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 8px;">Stone hairline — separates sections</p>
+        </div>
+        <div>
+          <hr class="rule-champagne" />
+          <p style="font-size: 0.75rem; color: #6B6460; margin-top: 8px;">Champagne accent rule — use once per page</p>
+        </div>
+      </div>
+
+      <!-- Motion & Transitions -->
+      <p class="label-caps" style="margin-bottom: 24px; color: #6B6460;">Motion Principles</p>
+      <div style="background: #EDE7DC; padding: 32px; margin-bottom: 64px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+          <div>
+            <p style="font-size: 0.8125rem; font-weight: 500; color: #1C1917; margin-bottom: 8px;">Timing</p>
+            <p style="font-size: 0.8125rem; color: #6B6460; line-height: 1.7;">
+              300ms — hover state micro-interactions<br>
+              400ms — element transitions<br>
+              600ms — image reveals, page transitions<br>
+              800ms — scroll-triggered fades<br>
+            </p>
+          </div>
+          <div>
+            <p style="font-size: 0.8125rem; font-weight: 500; color: #1C1917; margin-bottom: 8px;">Easing</p>
+            <p style="font-size: 0.8125rem; color: #6B6460; line-height: 1.7;">
+              Standard: <code style="font-size: 0.75rem; background: #D5CEC5; padding: 1px 4px;">cubic-bezier(0.4, 0, 0.2, 1)</code><br>
+              Reveal: <code style="font-size: 0.75rem; background: #D5CEC5; padding: 1px 4px;">cubic-bezier(0.16, 1, 0.3, 1)</code><br><br>
+              Animate: <code style="font-size: 0.75rem; background: #D5CEC5; padding: 1px 4px;">transform</code> and <code style="font-size: 0.75rem; background: #D5CEC5; padding: 1px 4px;">opacity</code> only
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Focus States -->
+      <p class="label-caps" style="margin-bottom: 24px; color: #6B6460;">Accessibility</p>
+      <div style="background: #EDE7DC; padding: 32px;">
+        <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-bottom: 24px;">
+          <!-- Simulated focus state -->
+          <button class="btn-primary" style="outline: 2px solid #B8974A; outline-offset: 3px;">Focused Button</button>
+          <a href="#" class="nav-link" style="border-color: #B8974A; outline: 2px solid #B8974A; outline-offset: 3px;">Focused Nav Link</a>
+        </div>
+        <p style="font-size: 0.8125rem; color: #6B6460; line-height: 1.7;">
+          Focus rings: 2px champagne (#B8974A), 3px offset. Visible on all keyboard-navigable elements. Background to text contrast: charcoal on ivory = 12.7:1 (AAA). Charcoal.muted on ivory = 5.8:1 (AA).
+        </p>
+      </div>
+
+    </section>
+
+    <hr class="rule-accent" style="margin-top: 80px;" />
+
+    <!-- ─── SECTION: SITE MAP ──────────────────────────────── -->
+    <section style="padding-top: 80px;">
+      <p class="section-label" style="margin-bottom: 8px;">05</p>
+      <h2 class="font-display" style="font-size: 2rem; font-weight: 400; color: #1C1917; letter-spacing: -0.02em; margin-bottom: 8px;">Pages to Build</h2>
+      <p style="font-size: 0.9375rem; color: #6B6460; margin-bottom: 48px; line-height: 1.7;">
+        Proposed build order — each page presented for review before the next begins.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #D5CEC5;">
+
+        <div style="background: #F7F3EC; padding: 32px;">
+          <p style="font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #B8974A; margin-bottom: 12px;">01 — First</p>
+          <p class="font-display" style="font-size: 1.5rem; font-weight: 400; color: #1C1917; margin-bottom: 8px;">Homepage</p>
+          <p style="font-size: 0.875rem; color: #6B6460; line-height: 1.7;">Full-bleed hero, featured collection strip, brand-story teaser, craftsmanship section, footer.</p>
+        </div>
+
+        <div style="background: #F7F3EC; padding: 32px;">
+          <p style="font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6460; margin-bottom: 12px;">02 — Second</p>
+          <p class="font-display" style="font-size: 1.5rem; font-weight: 400; color: #1C1917; margin-bottom: 8px;">Shop / Collection</p>
+          <p style="font-size: 0.875rem; color: #6B6460; line-height: 1.7;">Spaced product grid, filter by material/type, hover second image reveal.</p>
+        </div>
+
+        <div style="background: #F7F3EC; padding: 32px;">
+          <p style="font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6460; margin-bottom: 12px;">03 — Third</p>
+          <p class="font-display" style="font-size: 1.5rem; font-weight: 400; color: #1C1917; margin-bottom: 8px;">Product Detail</p>
+          <p style="font-size: 0.875rem; color: #6B6460; line-height: 1.7;">Large image gallery, evocative copy, materials/care, add-to-cart, slide-out cart.</p>
+        </div>
+
+        <div style="background: #F7F3EC; padding: 32px;">
+          <p style="font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6460; margin-bottom: 12px;">04 — Fourth</p>
+          <p class="font-display" style="font-size: 1.5rem; font-weight: 400; color: #1C1917; margin-bottom: 8px;">About / The Story</p>
+          <p style="font-size: 0.875rem; color: #6B6460; line-height: 1.7;">Jason Stewart's origin, the craft process, studio imagery.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── APPROVAL CTA ───────────────────────────────────── -->
+    <section style="padding-top: 96px; padding-bottom: 48px; text-align: center;">
+      <hr class="rule-champagne" style="margin-bottom: 64px; width: 48px; margin-left: auto; margin-right: auto;" />
+      <p class="font-display" style="font-size: 2rem; font-weight: 300; color: #1C1917; letter-spacing: -0.02em; margin-bottom: 16px; font-style: italic;">
+        Ready to build?
+      </p>
+      <p style="font-size: 0.9375rem; color: #6B6460; margin-bottom: 0; line-height: 1.7; max-width: 440px; margin-left: auto; margin-right: auto;">
+        Approve this design system and I'll begin with the Homepage. If you'd like to adjust any color, typeface, spacing, or component — say the word first.
+      </p>
+    </section>
+
+  </main>
+
+</body>
+</html>
