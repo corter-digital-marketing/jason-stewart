@@ -27,6 +27,8 @@
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: center center;
+      filter: blur(6px);
+      transform: scale(1.05);
     }
     .hero-bg::after {
       content: '';
@@ -79,6 +81,52 @@
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
+    }
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(247,243,236,0.72);
+      line-height: 1.75;
+      max-width: 460px;
+      margin-bottom: 40px;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── Trust strip ───────────────────────────────────────── */
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--stone);
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 28px 32px;
+      border-right: 1px solid var(--stone);
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon {
+      flex-shrink: 0;
+      color: var(--champagne);
+    }
+    .trust-copy { min-width: 0; }
+    .trust-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      white-space: nowrap;
+    }
+    .trust-sub {
+      font-size: 0.75rem;
+      color: var(--charcoal-muted);
+      margin-top: 2px;
     }
 
     /* ── Five-column product grid ──────────────────────────── */
@@ -142,6 +190,40 @@
       color: var(--charcoal);
       margin: 16px 0 28px;
     }
+    .story-copy {
+      font-size: 0.9375rem;
+      color: var(--charcoal-mid);
+      line-height: 1.85;
+      margin-bottom: 20px;
+      max-width: 420px;
+    }
+
+    /* ── Final CTA band ────────────────────────────────────── */
+    .cta-band {
+      padding: 120px 64px;
+      background: var(--ivory-warm);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .cta-band-heading {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.0;
+      color: var(--charcoal);
+      margin: 24px 0 20px;
+    }
+    .cta-band-sub {
+      font-size: 0.9375rem;
+      color: var(--charcoal-muted);
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 40px;
+    }
 
     /* ── Craft (dark) ──────────────────────────────────────── */
     .craft-headline {
@@ -196,6 +278,24 @@
       .hero-text { padding: 56px 24px 80px; }
       .hero-scroll-hint { display: none; }
       .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .trust-strip { grid-template-columns: 1fr; }
+      .trust-item { padding: 20px; border-right: none; border-bottom: 1px solid var(--stone); }
+      .trust-item:last-child { border-bottom: none; }
+      .story-split { grid-template-columns: 1fr; min-height: auto; }
+      .story-image { min-height: 360px; order: -1; }
+      .story-text { padding: 56px 24px; }
+      .story-copy { max-width: none; }
+      .craft-steps { grid-template-columns: 1fr; }
+      .craft-step {
+        border-right: none;
+        padding-right: 0;
+        margin-right: 0;
+        padding-bottom: 32px;
+        margin-bottom: 32px;
+        border-bottom: 1px solid rgba(213,206,197,0.1);
+      }
+      .craft-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+      .cta-band { padding: 80px 24px; }
     }
     @media (max-width: 640px) {
       .hero { min-height: 55svh; }
@@ -260,9 +360,51 @@
         fetchpriority="high"
       />
     </div>
+    <div class="hero-text">
+      <p class="label-caps reveal" style="color:rgba(247,243,236,0.6);">The Jason Stewart Collection</p>
+      <h1 class="hero-headline reveal reveal-delay-1">Built To Be<br>Used. Designed<br>To Last.</h1>
+      <p class="hero-sub reveal reveal-delay-2">
+        An aluminum tumbler with a matching drinking straw, finished in five colors. Lightweight, dishwasher safe, and made to outlast the trend.
+      </p>
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="shop.html" class="btn btn-fill">Shop the Collection</a>
+        <a href="about.html" class="btn btn-outline-light">Our Story</a>
+      </div>
+    </div>
     <div class="hero-scroll-hint" aria-hidden="true">
       <span class="hero-scroll-line"></span>
       <span class="hero-scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ─── Trust Strip ──────────────────────────────────────── -->
+  <section class="trust-strip" aria-label="Why shop with us">
+    <div class="trust-item">
+      <svg class="trust-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/>
+      </svg>
+      <div class="trust-copy">
+        <p class="trust-label">Five Colors</p>
+        <p class="trust-sub">One standard</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <svg class="trust-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Z"/><path d="M8 12l2.5 2.5L16 9"/>
+      </svg>
+      <div class="trust-copy">
+        <p class="trust-label">Dishwasher Safe</p>
+        <p class="trust-sub">No special care</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <svg class="trust-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/>
+      </svg>
+      <div class="trust-copy">
+        <p class="trust-label">7-Day Guarantee</p>
+        <p class="trust-sub">Arrives damaged? We fix it</p>
+      </div>
     </div>
   </section>
 
@@ -282,54 +424,115 @@
 
       <a href="product.html?color=white" class="product-card reveal" aria-label="Aluminum Tumbler — White">
         <div class="card-image">
-          <img src="cup-white.png" alt="Aluminum Tumbler in White" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/WhiteFront.png" alt="Aluminum Tumbler in White" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
           <p class="card-label label-caps">White</p>
-          <p class="card-price">$30</p>
+          <p class="card-price">$25</p>
         </div>
       </a>
 
       <a href="product.html?color=black" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Black">
         <div class="card-image">
-          <img src="cup-black.png" alt="Aluminum Tumbler in Black" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/BlackFront.png" alt="Aluminum Tumbler in Black" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
           <p class="card-label label-caps">Black</p>
-          <p class="card-price">$30</p>
+          <p class="card-price">$25</p>
         </div>
       </a>
 
       <a href="product.html?color=cherry" class="product-card reveal reveal-delay-2" aria-label="Aluminum Tumbler — Cherry">
         <div class="card-image">
-          <img src="cup-cherry.png" alt="Aluminum Tumbler in Cherry" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/CherryFront.png" alt="Aluminum Tumbler in Cherry" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
           <p class="card-label label-caps">Cherry</p>
-          <p class="card-price">$30</p>
+          <p class="card-price">$25</p>
         </div>
       </a>
 
       <a href="product.html?color=gold" class="product-card reveal" aria-label="Aluminum Tumbler — Gold">
         <div class="card-image">
-          <img src="cup-gold.png" alt="Aluminum Tumbler in Gold" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/GoldFront.png" alt="Aluminum Tumbler in Gold" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
           <p class="card-label label-caps">Gold</p>
-          <p class="card-price">$30</p>
+          <p class="card-price">$25</p>
         </div>
       </a>
 
       <a href="product.html?color=pink" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Pink">
         <div class="card-image">
-          <img src="cup-pink.png" alt="Aluminum Tumbler in Pink" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/PinkFront.png" alt="Aluminum Tumbler in Pink" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
           <p class="card-label label-caps">Pink</p>
-          <p class="card-price">$30</p>
+          <p class="card-price">$25</p>
         </div>
       </a>
 
+    </div>
+  </section>
+
+  <!-- ─── Brand Story Teaser ───────────────────────────────── -->
+  <div class="story-split">
+    <div class="story-image reveal">
+      <img
+        src="couple-holding.JPG"
+        alt="Two people holding Aluminum Tumblers outdoors"
+        width="900" height="700"
+        loading="lazy"
+      />
+    </div>
+    <div class="story-text reveal reveal-delay-1">
+      <p class="label-caps">The Brand</p>
+      <h2 class="story-pull">Made For Everyday.<br>Built To Outlast It.</h2>
+      <p class="story-copy">
+        Every piece in the collection is built around one idea: a cup should be worth keeping. Powder-coated aluminum, a straw that stays put, and a base that won't slide — nothing about it is disposable.
+      </p>
+      <p class="story-copy">
+        Jason Stewart designed it to be the one cup you actually reach for, morning after morning, for years.
+      </p>
+      <div style="margin-top:12px;">
+        <a href="about.html" class="btn btn-text">Read the full story</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Craftsmanship / Why It Holds Up ──────────────────── -->
+  <section class="section section-dark" aria-labelledby="craft-heading">
+    <p class="label-caps reveal" style="color:rgba(247,243,236,0.5);">Why It Holds Up</p>
+    <h2 class="craft-headline reveal reveal-delay-1" id="craft-heading">Everyday Details,<br>Done Properly.</h2>
+
+    <div class="craft-steps">
+      <div class="craft-step reveal">
+        <p class="craft-step-num">01</p>
+        <p class="craft-step-title">Powder-Coated Aluminum</p>
+        <p class="craft-step-body">Lightweight and dent-resistant, finished to hold its color wash after wash — not just look good on day one.</p>
+      </div>
+      <div class="craft-step reveal reveal-delay-1">
+        <p class="craft-step-num">02</p>
+        <p class="craft-step-title">Straw &amp; Anti-Slip Base</p>
+        <p class="craft-step-body">Every cup ships with a collapsible drinking straw and a rubber base that keeps it steady on any surface.</p>
+      </div>
+      <div class="craft-step reveal reveal-delay-2">
+        <p class="craft-step-num">03</p>
+        <p class="craft-step-title">7-Day Damage Policy</p>
+        <p class="craft-step-body">Every piece is inspected before it ships. If yours arrives damaged, tell us within 7 days and we'll make it right.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Final CTA ────────────────────────────────────────── -->
+  <section class="cta-band" aria-labelledby="cta-heading">
+    <span class="rule rule-short rule-champagne" aria-hidden="true"></span>
+    <h2 class="cta-band-heading reveal" id="cta-heading">Ready To Make It Yours?</h2>
+    <p class="cta-band-sub reveal reveal-delay-1">
+      Free shipping on every order. Gift-ready packaging, always included.
+    </p>
+    <div class="reveal reveal-delay-2">
+      <a href="shop.html" class="btn btn-fill">Shop the Collection</a>
     </div>
   </section>
 

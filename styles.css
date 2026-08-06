@@ -184,8 +184,10 @@ body {
 .btn-outline:hover { background: var(--charcoal); color: var(--ivory); }
 
 .btn-outline-light {
+  background: transparent;
   color: var(--ivory);
-  border-color: rgba(247,243,236,0.45);
+  padding: 14px 35px;
+  border: 1px solid rgba(247,243,236,0.45);
 }
 .btn-outline-light:hover {
   background: var(--ivory);

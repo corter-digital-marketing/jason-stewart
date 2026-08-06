@@ -92,11 +92,11 @@
   }
 
   const stripeLinks = {
-    white:  'https://buy.stripe.com/6oU7sM2rw4ls2iHgzwgYU01',
-    black:  'https://buy.stripe.com/4gMaEYd6a2dk5uTgzwgYU02',
-    cherry: 'https://buy.stripe.com/8x27sMfei2dk4qP2IGgYU03',
-    pink:   'https://buy.stripe.com/9B6eVe0jo4ls4qP0AygYU04',
-    gold:   'https://buy.stripe.com/5kQ6oIfeidW2aPd3MKgYU05',
+    white:  'https://buy.stripe.com/00wbJ22rw4ls3mL3MKgYU0a',
+    black:  'https://buy.stripe.com/3cIfZigim5pw1eD2IGgYU09',
+    cherry: 'https://buy.stripe.com/aFadRagim5pwbThgzwgYU08',
+    pink:   'https://buy.stripe.com/28E7sM9TY3ho7D1erogYU07',
+    gold:   'https://buy.stripe.com/3cIeVe9TY6tA3mL974gYU06',
   };
 
   function updateCheckoutLink() {

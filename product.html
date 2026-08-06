@@ -21,7 +21,7 @@
     .gallery {
       padding: 48px 40px 80px 64px;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 16px;
       position: sticky;
       top: var(--nav-h);
@@ -33,6 +33,7 @@
       overflow: hidden;
       background: #FFFFFF;
       min-height: 0;
+      min-width: 0;
     }
     .gallery-main img {
       width: 100%; height: 100%;
@@ -41,18 +42,22 @@
       transition: opacity 220ms var(--ease);
     }
     .gallery-thumbs {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 8px;
       flex-shrink: 0;
+      width: 96px;
+      overflow-y: auto;
     }
     .thumb-btn {
+      width: 100%;
       aspect-ratio: 3/4;
       overflow: hidden;
       background: #FFFFFF;
       cursor: pointer;
       border: 1px solid var(--stone);
       padding: 0;
+      flex-shrink: 0;
       transition: border-color 250ms var(--ease), opacity 250ms var(--ease);
     }
     .thumb-btn img { width: 100%; height: 100%; object-fit: contain; display: block; }
@@ -238,9 +243,17 @@
       .gallery {
         position: static;
         height: auto;
+        flex-direction: column;
         padding: calc(var(--nav-h) + 24px) 24px 32px;
       }
-      .gallery-main { height: 60svh; flex: none; }
+      .gallery-main { height: 60svh; flex: none; order: -1; }
+      .gallery-thumbs {
+        flex-direction: row;
+        width: auto;
+        overflow-x: auto;
+        overflow-y: visible;
+      }
+      .gallery-thumbs .thumb-btn { width: 88px; }
       .product-info {
         padding: 40px 24px 64px;
         border-left: none;
@@ -304,12 +317,13 @@
 
       <!-- Gallery -->
       <div class="gallery" aria-label="Product image">
+        <div class="gallery-thumbs" id="gallery-thumbs" role="list"></div>
         <div class="gallery-main">
           <img
             id="gallery-main-img"
-            src="cup-white.png"
-            alt="Aluminum Tumbler — White"
-            width="800" height="1000"
+            src="cupphotos/WhiteFront.png"
+            alt="Aluminum Tumbler — White, front view"
+            width="1000" height="1000"
           />
         </div>
       </div>
@@ -328,8 +342,8 @@
         <p class="label-accent">Aluminum &nbsp;·&nbsp; 5 Colors &nbsp;·&nbsp; Includes Straw</p>
         <h1 class="product-name">Aluminum Tumbler</h1>
 
-        <div class="product-price-line" aria-label="Price: $30 USD">
-          <span class="product-price">$30</span>
+        <div class="product-price-line" aria-label="Price: $25 USD">
+          <span class="product-price">$25</span>
           <span class="product-currency">USD</span>
         </div>
 
@@ -377,8 +391,8 @@
             id="add-to-cart"
             data-name="Aluminum Tumbler"
             data-material="White · Aluminum"
-            data-price="3000"
-            data-image="cup-white.png"
+            data-price="2500"
+            data-image="cupphotos/WhiteFront.png"
           >
             Add to Cart
           </button>
@@ -408,7 +422,7 @@
           </div>
           <div class="card-info">
             <p class="card-label label-caps">Black</p>
-            <p class="card-price">$30</p>
+            <p class="card-price">$25</p>
           </div>
         </a>
 
@@ -418,7 +432,7 @@
           </div>
           <div class="card-info">
             <p class="card-label label-caps">Cherry</p>
-            <p class="card-price">$30</p>
+            <p class="card-price">$25</p>
           </div>
         </a>
 
@@ -428,7 +442,7 @@
           </div>
           <div class="card-info">
             <p class="card-label label-caps">Gold</p>
-            <p class="card-price">$30</p>
+            <p class="card-price">$25</p>
           </div>
         </a>
       </div>
@@ -477,17 +491,80 @@
   <script>
     /* Color variant from URL parameter */
     const colors = {
-      white:  { img: 'cup-white.png',  label: 'White',  material: 'White · Aluminum' },
-      black:  { img: 'cup-black.png',  label: 'Black',  material: 'Black · Aluminum' },
-      cherry: { img: 'cup-cherry.png', label: 'Cherry', material: 'Cherry · Aluminum' },
-      gold:   { img: 'cup-gold.png',   label: 'Gold',   material: 'Gold · Aluminum' },
-      pink:   { img: 'cup-pink.png',   label: 'Pink',   material: 'Pink · Aluminum' },
+      white: {
+        label: 'White', material: 'White · Aluminum',
+        gallery: [
+          { src: 'cupphotos/WhiteFront.png', alt: 'Aluminum Tumbler — White, front view' },
+          { src: 'cupphotos/WhiteStraw.png', alt: 'Aluminum Tumbler — White, with collapsible straw' },
+          { src: 'cupphotos/whiteinfo.png',  alt: 'Aluminum Tumbler — White, product dimensions' },
+        ],
+      },
+      black: {
+        label: 'Black', material: 'Black · Aluminum',
+        gallery: [
+          { src: 'cupphotos/BlackFront.png', alt: 'Aluminum Tumbler — Black, front view' },
+          { src: 'cupphotos/BlackStraw.png', alt: 'Aluminum Tumbler — Black, with collapsible straw' },
+          { src: 'cupphotos/blackinfo.png',  alt: 'Aluminum Tumbler — Black, product dimensions' },
+        ],
+      },
+      cherry: {
+        label: 'Cherry', material: 'Cherry · Aluminum',
+        gallery: [
+          { src: 'cupphotos/CherryFront.png', alt: 'Aluminum Tumbler — Cherry, front view' },
+          { src: 'cupphotos/CherryStraw.png', alt: 'Aluminum Tumbler — Cherry, with collapsible straw' },
+          { src: 'cupphotos/cherryinfo.png',  alt: 'Aluminum Tumbler — Cherry, product dimensions' },
+        ],
+      },
+      gold: {
+        label: 'Gold', material: 'Gold · Aluminum',
+        gallery: [
+          { src: 'cupphotos/GoldFront.png', alt: 'Aluminum Tumbler — Gold, front view' },
+          { src: 'cupphotos/GoldStraw.png', alt: 'Aluminum Tumbler — Gold, with collapsible straw' },
+          { src: 'cupphotos/goldinfo.png',  alt: 'Aluminum Tumbler — Gold, product dimensions' },
+        ],
+      },
+      pink: {
+        label: 'Pink', material: 'Pink · Aluminum',
+        gallery: [
+          { src: 'cupphotos/PinkFront.png', alt: 'Aluminum Tumbler — Pink, front view' },
+          { src: 'cupphotos/PinkStraw.png', alt: 'Aluminum Tumbler — Pink, with collapsible straw' },
+          { src: 'cupphotos/pinkinfo.png',  alt: 'Aluminum Tumbler — Pink, product dimensions' },
+        ],
+      },
     };
     const param = new URLSearchParams(window.location.search).get('color') || 'white';
     const variant = colors[param] || colors.white;
 
-    document.getElementById('gallery-main-img').src = variant.img;
-    document.getElementById('gallery-main-img').alt = 'Aluminum Tumbler — ' + variant.label;
+    const mainImg = document.getElementById('gallery-main-img');
+    const thumbsEl = document.getElementById('gallery-thumbs');
+
+    function showImage(index) {
+      const item = variant.gallery[index];
+      mainImg.src = item.src;
+      mainImg.alt = item.alt;
+      thumbsEl.querySelectorAll('.thumb-btn').forEach((btn, i) => {
+        btn.setAttribute('aria-pressed', i === index ? 'true' : 'false');
+      });
+    }
+
+    thumbsEl.innerHTML = '';
+    variant.gallery.forEach((item, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'thumb-btn';
+      btn.setAttribute('role', 'listitem');
+      btn.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+      btn.setAttribute('aria-label', item.alt);
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = '';
+      img.loading = 'lazy';
+      btn.appendChild(img);
+      btn.addEventListener('click', () => showImage(i));
+      thumbsEl.appendChild(btn);
+    });
+
+    showImage(0);
 
     const labelEl = document.querySelector('.label-accent');
     if (labelEl) labelEl.textContent = variant.label + '  ·  Aluminum  ·  Includes Straw';
@@ -495,7 +572,7 @@
     const addBtn = document.getElementById('add-to-cart');
     if (addBtn) {
       addBtn.dataset.material = variant.material;
-      addBtn.dataset.image = variant.img;
+      addBtn.dataset.image = variant.gallery[0].src;
     }
 
     /* Quantity control */
