@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
+  <script src="analytics.js"></script>
   <style>
     /* ── Hero ──────────────────────────────────────────────── */
     .hero {
@@ -95,11 +96,18 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+    .hero-actions-secondary {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
 
     /* ── Trust strip ───────────────────────────────────────── */
     .trust-strip {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       border-bottom: 1px solid var(--stone);
     }
     .trust-item {
@@ -278,9 +286,9 @@
       .hero-text { padding: 56px 24px 80px; }
       .hero-scroll-hint { display: none; }
       .section-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-      .trust-strip { grid-template-columns: 1fr; }
-      .trust-item { padding: 20px; border-right: none; border-bottom: 1px solid var(--stone); }
-      .trust-item:last-child { border-bottom: none; }
+      .trust-strip { grid-template-columns: repeat(2, 1fr); }
+      .trust-item { padding: 20px; border-bottom: 1px solid var(--stone); }
+      .trust-item:nth-child(2n) { border-right: none; }
       .story-split { grid-template-columns: 1fr; min-height: auto; }
       .story-image { min-height: 360px; order: -1; }
       .story-text { padding: 56px 24px; }
@@ -362,13 +370,16 @@
     </div>
     <div class="hero-text">
       <p class="label-caps reveal" style="color:rgba(247,243,236,0.6);">The Jason Stewart Collection</p>
-      <h1 class="hero-headline reveal reveal-delay-1">Built To Be<br>Used. Designed<br>To Last.</h1>
+      <h1 class="hero-headline reveal reveal-delay-1">The Stewart<br>Cup</h1>
       <p class="hero-sub reveal reveal-delay-2">
-        An aluminum tumbler with a matching drinking straw, finished in five colors. Lightweight, dishwasher safe, and made to outlast the trend.
+        The cup you'll actually keep. Lightweight aluminum. Premium powder-coated finish. Matching straw. Five signature colors. Complimentary domestic shipping.
       </p>
       <div class="hero-actions reveal reveal-delay-3">
-        <a href="shop.html" class="btn btn-fill">Shop the Collection</a>
-        <a href="about.html" class="btn btn-outline-light">Our Story</a>
+        <a href="shop.html" class="btn btn-fill">Shop the Stewart Cup</a>
+      </div>
+      <div class="hero-actions-secondary reveal reveal-delay-4">
+        <a href="product.html#bundles" class="btn btn-text btn-text-light">Build a Set</a>
+        <a href="corporate.html" class="btn btn-text btn-text-light">Corporate Orders</a>
       </div>
     </div>
     <div class="hero-scroll-hint" aria-hidden="true">
@@ -391,22 +402,22 @@
 
     <div class="products-five">
 
-      <a href="product.html?color=white" class="product-card reveal" aria-label="Aluminum Tumbler — White">
+      <a href="product.html?color=white" class="product-card reveal" aria-label="Aluminum Tumbler — Pearl">
         <div class="card-image">
-          <img src="cupphotos/WhiteFront.png" alt="Aluminum Tumbler in White" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/WhiteFront.png" alt="Aluminum Tumbler in Pearl (White)" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
-          <p class="card-label label-caps">White</p>
+          <p class="card-label label-caps">Pearl</p>
           <p class="card-price">$25</p>
         </div>
       </a>
 
-      <a href="product.html?color=black" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Black">
+      <a href="product.html?color=black" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Onyx">
         <div class="card-image">
-          <img src="cupphotos/BlackFront.png" alt="Aluminum Tumbler in Black" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/BlackFront.png" alt="Aluminum Tumbler in Onyx (Black)" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
-          <p class="card-label label-caps">Black</p>
+          <p class="card-label label-caps">Onyx</p>
           <p class="card-price">$25</p>
         </div>
       </a>
@@ -421,22 +432,22 @@
         </div>
       </a>
 
-      <a href="product.html?color=gold" class="product-card reveal" aria-label="Aluminum Tumbler — Gold">
+      <a href="product.html?color=gold" class="product-card reveal" aria-label="Aluminum Tumbler — Champagne">
         <div class="card-image">
-          <img src="cupphotos/GoldFront.png" alt="Aluminum Tumbler in Gold" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/GoldFront.png" alt="Aluminum Tumbler in Champagne (Gold)" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
-          <p class="card-label label-caps">Gold</p>
+          <p class="card-label label-caps">Champagne</p>
           <p class="card-price">$25</p>
         </div>
       </a>
 
-      <a href="product.html?color=pink" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Pink">
+      <a href="product.html?color=pink" class="product-card reveal reveal-delay-1" aria-label="Aluminum Tumbler — Blush">
         <div class="card-image">
-          <img src="cupphotos/PinkFront.png" alt="Aluminum Tumbler in Pink" width="480" height="640" loading="lazy" />
+          <img src="cupphotos/PinkFront.png" alt="Aluminum Tumbler in Blush (Pink)" width="480" height="640" loading="lazy" />
         </div>
         <div class="card-info">
-          <p class="card-label label-caps">Pink</p>
+          <p class="card-label label-caps">Blush</p>
           <p class="card-price">$25</p>
         </div>
       </a>
@@ -473,11 +484,11 @@
   <section class="trust-strip" aria-label="Why shop with us">
     <div class="trust-item">
       <svg class="trust-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/>
+        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/>
       </svg>
       <div class="trust-copy">
-        <p class="trust-label">Five Colors</p>
-        <p class="trust-sub">One standard</p>
+        <p class="trust-label">Premium Aluminum</p>
+        <p class="trust-sub">Built to outlast the trend</p>
       </div>
     </div>
     <div class="trust-item">
@@ -485,17 +496,26 @@
         <path d="M4 12a8 8 0 1 0 16 0 8 8 0 0 0-16 0Z"/><path d="M8 12l2.5 2.5L16 9"/>
       </svg>
       <div class="trust-copy">
-        <p class="trust-label">Dishwasher Safe</p>
-        <p class="trust-sub">No special care</p>
+        <p class="trust-label">Matching Straw</p>
+        <p class="trust-sub">Included with every cup</p>
       </div>
     </div>
     <div class="trust-item">
       <svg class="trust-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/>
+        <polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>
       </svg>
       <div class="trust-copy">
-        <p class="trust-label">Damage Guarantee</p>
-        <p class="trust-sub">Arrives broken? We replace it</p>
+        <p class="trust-label">Gift-Ready</p>
+        <p class="trust-sub">Custom packaging, always</p>
+      </div>
+    </div>
+    <div class="trust-item">
+      <svg class="trust-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="1" y="6" width="15" height="12"/><path d="M16 10h4l3 3v5h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="18" cy="19" r="1.6"/>
+      </svg>
+      <div class="trust-copy">
+        <p class="trust-label">Free Shipping</p>
+        <p class="trust-sub">On every domestic order</p>
       </div>
     </div>
   </section>

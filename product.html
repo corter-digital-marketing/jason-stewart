@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="styles.css" />
+  <script src="analytics.js"></script>
   <style>
     /* ── Product layout ────────────────────────────────────── */
     .product-wrap {
@@ -234,6 +235,121 @@
       margin-bottom: 56px;
     }
 
+    /* ── Build Your Set (bundles) ─────────────────────────────── */
+    .bundles {
+      padding: 96px 64px;
+      border-top: 1px solid var(--stone);
+      background: var(--ivory-warm);
+    }
+    .bundles-heading {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-top: 12px;
+      margin-bottom: 40px;
+    }
+    .bundle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--stone);
+    }
+    .bundle-card {
+      background: var(--ivory);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .bundle-card.featured { box-shadow: inset 0 3px 0 var(--champagne); }
+    .bundle-tier {
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--champagne);
+    }
+    .bundle-name {
+      font-family: var(--f-display);
+      font-size: 1.1875rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin: 10px 0 6px;
+      line-height: 1.15;
+    }
+    .bundle-price {
+      font-size: 1.375rem;
+      color: var(--charcoal);
+      margin-bottom: 14px;
+    }
+    .bundle-price span { font-size: 0.75rem; color: var(--charcoal-muted); font-weight: 400; }
+    .bundle-desc {
+      font-size: 0.8125rem;
+      color: var(--charcoal-muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+      flex: 1;
+    }
+    .bundle-btn { width: 100%; justify-content: center; }
+
+    /* ── FAQ ───────────────────────────────────────────────────── */
+    .faq {
+      padding: 96px 64px;
+      border-top: 1px solid var(--stone);
+    }
+    .faq-heading {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      margin-top: 12px;
+      margin-bottom: 40px;
+    }
+    .faq-item { border-top: 1px solid var(--stone); }
+    .faq-item:last-child { border-bottom: 1px solid var(--stone); }
+    .faq-item summary {
+      padding: 22px 0;
+      cursor: pointer;
+      font-family: var(--f-display);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.9375rem;
+      color: var(--charcoal);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::marker { content: ''; }
+    .faq-icon {
+      flex-shrink: 0;
+      font-size: 1.125rem;
+      color: var(--champagne);
+      transition: transform 220ms var(--ease);
+      font-weight: 300;
+    }
+    .faq-item[open] .faq-icon { transform: rotate(45deg); }
+    .faq-item-body {
+      font-size: 0.9rem;
+      color: var(--charcoal-mid);
+      line-height: 1.75;
+      max-width: 640px;
+      padding-bottom: 24px;
+    }
+
+    /* ── Sticky mobile Add to Cart ─────────────────────────────── */
+    .sticky-cta { display: none; }
+
     /* ── Mobile ────────────────────────────────────────────── */
     @media (max-width: 900px) {
       .product-wrap {
@@ -255,11 +371,46 @@
       }
       .gallery-thumbs .thumb-btn { width: 88px; }
       .product-info {
-        padding: 40px 24px 64px;
+        padding: 40px 24px 100px;
         border-left: none;
         border-top: 1px solid var(--stone);
       }
       .related { padding: 64px 24px; }
+      .bundles { padding: 64px 24px; }
+      .bundle-grid { grid-template-columns: 1fr 1fr; }
+      .faq { padding: 64px 24px 100px; }
+
+      .sticky-cta {
+        display: flex;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        z-index: 50;
+        background: var(--ivory);
+        border-top: 1px solid var(--stone);
+        padding: 12px 16px;
+        gap: 12px;
+        align-items: center;
+        box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+      }
+      .sticky-cta-info { flex: 1; min-width: 0; }
+      .sticky-cta-name {
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--charcoal);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .sticky-cta-price { font-size: 0.75rem; color: var(--charcoal-muted); }
+      .sticky-cta-btn {
+        flex-shrink: 0;
+        padding: 14px 18px !important;
+        font-size: 0.625rem !important;
+        letter-spacing: 0.08em !important;
+      }
+    }
+    @media (max-width: 640px) {
+      .bundle-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -322,7 +473,7 @@
           <img
             id="gallery-main-img"
             src="cupphotos/WhiteFront.png"
-            alt="Aluminum Tumbler — White, front view"
+            alt="Aluminum Tumbler — Pearl (White), front view"
             width="1000" height="1000"
           />
         </div>
@@ -390,7 +541,8 @@
             class="btn btn-fill add-btn"
             id="add-to-cart"
             data-name="Aluminum Tumbler"
-            data-material="White · Aluminum"
+            data-material="Pearl · Aluminum"
+            data-color="white"
             data-price="2500"
             data-image="cupphotos/WhiteFront.png"
           >
@@ -404,11 +556,82 @@
 
         <div class="materials-note">
           <p>
-            Each cup is inspected before it ships. If your order arrives damaged, contact us within 7 days and we will make it right.
+            Each cup is inspected before it ships. If your order arrives damaged, contact us within 48 hours and we will make it right.
           </p>
         </div>
       </div>
     </div>
+
+    <!-- ─── Build Your Set ──────────────────────────────────── -->
+    <section class="bundles" id="bundles" aria-labelledby="bundles-heading">
+      <p class="label-caps">More Cups, Better Value</p>
+      <h2 class="bundles-heading" id="bundles-heading">Build Your Set</h2>
+
+      <div class="bundle-grid">
+        <div class="bundle-card reveal">
+          <p class="bundle-tier">Entry Offer</p>
+          <p class="bundle-name">1 Stewart Cup</p>
+          <p class="bundle-price">$25 <span>USD</span></p>
+          <p class="bundle-desc">Pick your color above and add it to your cart.</p>
+          <a href="#top" class="btn btn-outline bundle-btn" onclick="document.querySelector('.gallery').scrollIntoView({behavior:'smooth'}); return false;">Choose a Color</a>
+        </div>
+
+        <div class="bundle-card reveal reveal-delay-1">
+          <p class="bundle-tier">Most Popular</p>
+          <p class="bundle-name">2-Cup Set</p>
+          <p class="bundle-price">$45 <span>USD</span></p>
+          <p class="bundle-desc">Mix and match any two colors — note your picks at checkout.</p>
+          <button type="button" class="btn btn-outline bundle-btn" data-bundle-btn data-bundle-key="2cup" data-bundle-name="2-Cup Set" data-bundle-price="4500">Add Set to Cart</button>
+        </div>
+
+        <div class="bundle-card featured reveal reveal-delay-2">
+          <p class="bundle-tier">Best Value</p>
+          <p class="bundle-name">4-Cup Set</p>
+          <p class="bundle-price">$80 <span>USD</span></p>
+          <p class="bundle-desc">A full set for the house, or two to give away. Mix and match colors.</p>
+          <button type="button" class="btn btn-fill bundle-btn" data-bundle-btn data-bundle-key="4cup" data-bundle-name="4-Cup Set" data-bundle-price="8000">Add Set to Cart</button>
+        </div>
+
+        <div class="bundle-card reveal reveal-delay-3">
+          <p class="bundle-tier">Premium</p>
+          <p class="bundle-name">5-Color Collection</p>
+          <p class="bundle-price">$95 <span>USD</span></p>
+          <p class="bundle-desc">One of every color — the complete Stewart Cup collection.</p>
+          <button type="button" class="btn btn-outline bundle-btn" data-bundle-btn data-bundle-key="5color" data-bundle-name="5-Color Collection" data-bundle-price="9500">Add Set to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FAQ ──────────────────────────────────────────────── -->
+    <section class="faq" aria-labelledby="faq-heading">
+      <p class="label-caps">Good to Know</p>
+      <h2 class="faq-heading" id="faq-heading">Frequently Asked Questions</h2>
+
+      <details class="faq-item">
+        <summary>What's included with each cup?<span class="faq-icon">+</span></summary>
+        <p class="faq-item-body">Every Stewart Cup ships with a matching collapsible drinking straw and a rubber anti-slip base — no separate purchase needed.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is it dishwasher safe?<span class="faq-icon">+</span></summary>
+        <p class="faq-item-body">Yes — top rack recommended. The powder coat finish is designed to hold up to regular machine washing without fading or chipping. See the full <a href="care-guide.html" style="border-bottom:1px solid var(--champagne);">Care Guide</a> for hand-washing tips.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What are the dimensions and capacity?<span class="faq-icon">+</span></summary>
+        <p class="faq-item-body">16.9 oz capacity, 7.2 in tall, 3.1 in wide. See the product dimensions photo in the gallery above for the full breakdown.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How fast does it ship, and what does it cost?<span class="faq-icon">+</span></summary>
+        <p class="faq-item-body">Complimentary domestic shipping on every order. In-stock pieces ship within 3–5 business days, arriving in gift-ready custom packaging. See full <a href="shipping.html" style="border-bottom:1px solid var(--champagne);">Shipping details</a>.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What if my order arrives damaged?<span class="faq-icon">+</span></summary>
+        <p class="faq-item-body">Contact us within 48 hours of delivery and we'll arrange a replacement or full refund at no cost to you. Every piece is inspected before it ships.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What's your return policy?<span class="faq-icon">+</span></summary>
+        <p class="faq-item-body">14-day returns on unused pieces in original packaging. See the full <a href="returns.html" style="border-bottom:1px solid var(--champagne);">Returns policy</a> for how to start one.</p>
+      </details>
+    </section>
 
     <!-- ─── Related Products ──────────────────────────────── -->
     <section class="related" aria-labelledby="related-heading">
@@ -416,12 +639,12 @@
       <h2 class="related-heading" id="related-heading">More Colors</h2>
 
       <div class="product-grid">
-        <a href="product.html?color=black" class="product-card reveal" aria-label="Aluminum Tumbler — Black">
+        <a href="product.html?color=black" class="product-card reveal" aria-label="Aluminum Tumbler — Onyx">
           <div class="card-image">
-            <img src="cupphotos/BlackFront.png" alt="Aluminum Tumbler in Black" width="480" height="640" loading="lazy" />
+            <img src="cupphotos/BlackFront.png" alt="Aluminum Tumbler in Onyx (Black)" width="480" height="640" loading="lazy" />
           </div>
           <div class="card-info">
-            <p class="card-label label-caps">Black</p>
+            <p class="card-label label-caps">Onyx</p>
             <p class="card-price">$25</p>
           </div>
         </a>
@@ -436,18 +659,27 @@
           </div>
         </a>
 
-        <a href="product.html?color=gold" class="product-card reveal reveal-delay-2" aria-label="Aluminum Tumbler — Gold">
+        <a href="product.html?color=gold" class="product-card reveal reveal-delay-2" aria-label="Aluminum Tumbler — Champagne">
           <div class="card-image">
-            <img src="cupphotos/GoldFront.png" alt="Aluminum Tumbler in Gold" width="480" height="640" loading="lazy" />
+            <img src="cupphotos/GoldFront.png" alt="Aluminum Tumbler in Champagne (Gold)" width="480" height="640" loading="lazy" />
           </div>
           <div class="card-info">
-            <p class="card-label label-caps">Gold</p>
+            <p class="card-label label-caps">Champagne</p>
             <p class="card-price">$25</p>
           </div>
         </a>
       </div>
     </section>
   </main>
+
+  <!-- ─── Sticky Mobile Add to Cart ───────────────────────────── -->
+  <div class="sticky-cta" aria-hidden="true">
+    <div class="sticky-cta-info">
+      <p class="sticky-cta-name" id="sticky-cta-name">Aluminum Tumbler</p>
+      <p class="sticky-cta-price" id="sticky-cta-price">$25</p>
+    </div>
+    <button type="button" class="btn btn-fill sticky-cta-btn" id="sticky-add-to-cart">Add to Cart</button>
+  </div>
 
   <!-- ─── Footer ───────────────────────────────────────────── -->
   <footer class="site-footer" aria-label="Site footer">
@@ -489,22 +721,25 @@
 
   <script src="script.js"></script>
   <script>
-    /* Color variant from URL parameter */
+    /* Color variant from URL parameter.
+       Internal keys (white/black/cherry/gold/pink) stay the same as the
+       Stripe payment links and cupphotos filenames — only the label/material
+       shown to shoppers has been renamed. */
     const colors = {
       white: {
-        label: 'White', material: 'White · Aluminum',
+        label: 'Pearl', material: 'Pearl · Aluminum',
         gallery: [
-          { src: 'cupphotos/WhiteFront.png', alt: 'Aluminum Tumbler — White, front view' },
-          { src: 'cupphotos/WhiteStraw.png', alt: 'Aluminum Tumbler — White, with collapsible straw' },
-          { src: 'cupphotos/whiteinfo.png',  alt: 'Aluminum Tumbler — White, product dimensions' },
+          { src: 'cupphotos/WhiteFront.png', alt: 'Aluminum Tumbler — Pearl (White), front view' },
+          { src: 'cupphotos/WhiteStraw.png', alt: 'Aluminum Tumbler — Pearl (White), with collapsible straw' },
+          { src: 'cupphotos/whiteinfo.png',  alt: 'Aluminum Tumbler — Pearl (White), product dimensions' },
         ],
       },
       black: {
-        label: 'Black', material: 'Black · Aluminum',
+        label: 'Onyx', material: 'Onyx · Aluminum',
         gallery: [
-          { src: 'cupphotos/BlackFront.png', alt: 'Aluminum Tumbler — Black, front view' },
-          { src: 'cupphotos/BlackStraw.png', alt: 'Aluminum Tumbler — Black, with collapsible straw' },
-          { src: 'cupphotos/blackinfo.png',  alt: 'Aluminum Tumbler — Black, product dimensions' },
+          { src: 'cupphotos/BlackFront.png', alt: 'Aluminum Tumbler — Onyx (Black), front view' },
+          { src: 'cupphotos/BlackStraw.png', alt: 'Aluminum Tumbler — Onyx (Black), with collapsible straw' },
+          { src: 'cupphotos/blackinfo.png',  alt: 'Aluminum Tumbler — Onyx (Black), product dimensions' },
         ],
       },
       cherry: {
@@ -516,24 +751,25 @@
         ],
       },
       gold: {
-        label: 'Gold', material: 'Gold · Aluminum',
+        label: 'Champagne', material: 'Champagne · Aluminum',
         gallery: [
-          { src: 'cupphotos/GoldFront.png', alt: 'Aluminum Tumbler — Gold, front view' },
-          { src: 'cupphotos/GoldStraw.png', alt: 'Aluminum Tumbler — Gold, with collapsible straw' },
-          { src: 'cupphotos/goldinfo.png',  alt: 'Aluminum Tumbler — Gold, product dimensions' },
+          { src: 'cupphotos/GoldFront.png', alt: 'Aluminum Tumbler — Champagne (Gold), front view' },
+          { src: 'cupphotos/GoldStraw.png', alt: 'Aluminum Tumbler — Champagne (Gold), with collapsible straw' },
+          { src: 'cupphotos/goldinfo.png',  alt: 'Aluminum Tumbler — Champagne (Gold), product dimensions' },
         ],
       },
       pink: {
-        label: 'Pink', material: 'Pink · Aluminum',
+        label: 'Blush', material: 'Blush · Aluminum',
         gallery: [
-          { src: 'cupphotos/PinkFront.png', alt: 'Aluminum Tumbler — Pink, front view' },
-          { src: 'cupphotos/PinkStraw.png', alt: 'Aluminum Tumbler — Pink, with collapsible straw' },
-          { src: 'cupphotos/pinkinfo.png',  alt: 'Aluminum Tumbler — Pink, product dimensions' },
+          { src: 'cupphotos/PinkFront.png', alt: 'Aluminum Tumbler — Blush (Pink), front view' },
+          { src: 'cupphotos/PinkStraw.png', alt: 'Aluminum Tumbler — Blush (Pink), with collapsible straw' },
+          { src: 'cupphotos/pinkinfo.png',  alt: 'Aluminum Tumbler — Blush (Pink), product dimensions' },
         ],
       },
     };
     const param = new URLSearchParams(window.location.search).get('color') || 'white';
-    const variant = colors[param] || colors.white;
+    const colorKey = colors[param] ? param : 'white';
+    const variant = colors[colorKey];
 
     const mainImg = document.getElementById('gallery-main-img');
     const thumbsEl = document.getElementById('gallery-thumbs');
@@ -572,7 +808,25 @@
     const addBtn = document.getElementById('add-to-cart');
     if (addBtn) {
       addBtn.dataset.material = variant.material;
+      addBtn.dataset.color = colorKey;
       addBtn.dataset.image = variant.gallery[0].src;
+    }
+
+    /* Sticky mobile bar mirrors the main price/name and forwards its
+       click to the real Add to Cart button, so all of the cart/analytics
+       logic in script.js only has to live in one place. */
+    const stickyName  = document.getElementById('sticky-cta-name');
+    const stickyPrice = document.getElementById('sticky-cta-price');
+    const stickyBtn   = document.getElementById('sticky-add-to-cart');
+    if (stickyName)  stickyName.textContent = 'Aluminum Tumbler — ' + variant.label;
+    if (stickyPrice) stickyPrice.textContent = '$25';
+    if (stickyBtn && addBtn) {
+      stickyBtn.addEventListener('click', () => addBtn.click());
+    }
+
+    /* View item tracking */
+    if (window.JSC) {
+      window.JSC.trackViewItem({ name: addBtn ? addBtn.dataset.name : 'Aluminum Tumbler', color: colorKey, price: 2500 });
     }
 
     /* Quantity control */
@@ -585,6 +839,42 @@
     document.getElementById('qty-dec').addEventListener('click', () => {
       qty = Math.max(qty - 1, 1);
       display.textContent = qty;
+    });
+    // script.js resets the on-screen quantity to "1" after a successful
+    // add-to-cart; keep this closure's own qty variable in sync with it.
+    document.addEventListener('jsc:added-to-cart', () => {
+      qty = 1;
+      if (display) display.textContent = '1';
+    });
+
+    /* Bundle "Add Set to Cart" buttons — temporarily point the shared
+       Add to Cart button at the bundle's price/name, click it (so all of
+       script.js's cart/analytics/render logic runs once, in one place),
+       then restore the single-cup values afterward. */
+    document.querySelectorAll('[data-bundle-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!addBtn) return;
+        const original = {
+          name: addBtn.dataset.name,
+          material: addBtn.dataset.material,
+          color: addBtn.dataset.color,
+          price: addBtn.dataset.price,
+          image: addBtn.dataset.image,
+          bundleKey: addBtn.dataset.bundleKey || '',
+        };
+        addBtn.dataset.name = btn.dataset.bundleName;
+        addBtn.dataset.material = 'Mix & match colors — noted at checkout';
+        addBtn.dataset.color = '';
+        addBtn.dataset.price = btn.dataset.bundlePrice;
+        addBtn.dataset.bundleKey = btn.dataset.bundleKey;
+        addBtn.click();
+        addBtn.dataset.name = original.name;
+        addBtn.dataset.material = original.material;
+        addBtn.dataset.color = original.color;
+        addBtn.dataset.price = original.price;
+        addBtn.dataset.image = original.image;
+        addBtn.dataset.bundleKey = original.bundleKey;
+      });
     });
   </script>
 </body>

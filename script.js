@@ -62,16 +62,17 @@
     let html = '';
     let sum  = 0;
     cartItems.forEach((item, i) => {
-      sum += item.price;
+      const qty = item.qty || 1;
+      sum += item.price * qty;
       html += `
         <div class="cart-item">
           <div class="cart-item-image">
             <img src="${item.image}" alt="${item.name}" loading="lazy" />
           </div>
           <div class="cart-item-details">
-            <p class="cart-item-name">${item.name}</p>
+            <p class="cart-item-name">${item.name}${qty > 1 ? ` &times; ${qty}` : ''}</p>
             <p class="cart-item-meta">${item.material}</p>
-            <p class="cart-item-price">${formatPrice(item.price)}</p>
+            <p class="cart-item-price">${formatPrice(item.price * qty)}</p>
             <button class="btn-text" style="font-size:0.625rem;margin-top:10px;color:var(--charcoal-muted);border-color:var(--stone);" data-remove="${i}">Remove</button>
           </div>
         </div>`;
@@ -99,11 +100,25 @@
     gold:   'https://buy.stripe.com/3cIeVe9TY6tA3mL974gYU06',
   };
 
+  const bundleLinks = {
+    '2cup':   'https://buy.stripe.com/cNi3cwd6adW28H5fvsgYU0b',
+    '4cup':   'https://buy.stripe.com/cNi28s4zEcRY6yXerogYU0c',
+    '5color': 'https://buy.stripe.com/aFa4gAc268BIaPd3MKgYU0d',
+  };
+
   function updateCheckoutLink() {
     const link = document.getElementById('checkout-link');
     if (!link) return;
     if (cartItems.length === 0) return;
-    const color = cartItems[0].material.split('·')[0].trim().toLowerCase();
+    const item = cartItems[0];
+    if (item.bundleKey) {
+      link.href = bundleLinks[item.bundleKey] || 'product.html#bundles';
+      return;
+    }
+    // Prefer the explicit color key set when the item was added; fall back
+    // to parsing the material string for any older cart data already in
+    // sessionStorage from before this field existed.
+    const color = item.color || item.material.split('·')[0].trim().toLowerCase();
     link.href = stripeLinks[color] || 'shop.html';
   }
 
@@ -138,16 +153,25 @@
   const addBtn = document.getElementById('add-to-cart');
   if (addBtn) {
     addBtn.addEventListener('click', () => {
+      const qtyEl = document.getElementById('qty-display');
       const product = {
-        name:     addBtn.dataset.name,
-        material: addBtn.dataset.material,
-        price:    parseInt(addBtn.dataset.price),
-        image:    addBtn.dataset.image,
+        name:      addBtn.dataset.name,
+        material:  addBtn.dataset.material,
+        color:     addBtn.dataset.color || '',
+        bundleKey: addBtn.dataset.bundleKey || '',
+        price:     parseInt(addBtn.dataset.price, 10),
+        image:     addBtn.dataset.image,
+        qty:       qtyEl ? parseInt(qtyEl.textContent, 10) || 1 : 1,
       };
       cartItems.push(product);
       saveCart();
       updateBadge();
       openCart();
+      if (window.JSC) window.JSC.trackAddToCart(product);
+
+      // Let the page's own quantity-stepper script (which owns the qty
+      // state) know it should reset itself back to 1.
+      document.dispatchEvent(new CustomEvent('jsc:added-to-cart'));
 
       addBtn.textContent = 'Added';
       addBtn.disabled = true;
@@ -155,6 +179,14 @@
         addBtn.textContent = 'Add to Cart';
         addBtn.disabled = false;
       }, 2000);
+    });
+  }
+
+  /* ─── Begin checkout tracking ─────────────────────────────── */
+  const checkoutLinkEl = document.getElementById('checkout-link');
+  if (checkoutLinkEl) {
+    checkoutLinkEl.addEventListener('click', () => {
+      if (window.JSC && cartItems.length) window.JSC.trackBeginCheckout(cartItems);
     });
   }
 

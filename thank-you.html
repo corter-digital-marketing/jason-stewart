@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You — The Jason Stewart Collection</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="analytics.js"></script>
+  <style>
+    .ty-wrap {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 48px) 24px 96px;
+    }
+    .ty-headline {
+      font-family: var(--f-display);
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.0;
+      color: var(--charcoal);
+      margin: 24px 0 20px;
+    }
+    .ty-sub {
+      font-size: 0.9375rem;
+      color: var(--charcoal-mid);
+      line-height: 1.8;
+      max-width: 440px;
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── Navigation ──────────────────────────────────────── -->
+  <nav class="site-nav is-ivory" id="site-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Jason Stewart Collection — Home">
+      <img src="black-cropped.png" alt="The Jason Stewart Collection" style="height:54px; width:auto; display:block;" />
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="shop.html"      class="nav-link">Shop</a></li>
+      <li><a href="corporate.html" class="nav-link">Corporate</a></li>
+      <li><a href="about.html"     class="nav-link">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="ty-wrap">
+    <span class="rule rule-short rule-champagne" aria-hidden="true"></span>
+    <h1 class="ty-headline">Thank You</h1>
+    <p class="ty-sub">
+      Your order is confirmed — a receipt is on its way to your inbox. We inspect and pack every piece by hand, so it'll ship within 3–5 business days.
+    </p>
+    <a href="shop.html" class="btn btn-outline">Keep Browsing</a>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // This page exists so a real "Purchase" conversion can be tracked —
+    // set every Stripe Payment Link's post-payment redirect to this URL
+    // (Stripe Dashboard → Payment Link → after payment → redirect customers to your website).
+    if (window.JSC) window.JSC.trackPurchase();
+  </script>
+</body>
+</html>
